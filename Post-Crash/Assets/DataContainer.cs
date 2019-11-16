@@ -16,7 +16,7 @@ public class DataContainer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        alla_deeze = GameObject.FindGameObjectsWithTag("Data Container");
+        alla_deeze = GameObject.FindGameObjectsWithTag("DataContainer");
 
         for (int i = 0; i < alla_deeze.Length; i++)
         {
