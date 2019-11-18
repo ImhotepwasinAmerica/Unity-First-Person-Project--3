@@ -21,6 +21,11 @@ public class MenuScriptGraphics : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (!PlayerPrefs.HasKey("fullscreen"))
+        {
+            DeveloperPreferences.Graphics();
+        }
+
         res_array = new Resolution[]
         {
             new Resolution(320,200),
@@ -54,74 +59,16 @@ public class MenuScriptGraphics : MonoBehaviour
         else if (PlayerPrefs.GetInt("width") == 1680) { res_array_pointer = 11; }
         else { res_array_pointer = res_array.Length - 1; }
 
-        if (PlayerPrefs.HasKey("fullscreen"))
-        { fullscreen_button.isOn = PlayerPrefs.GetInt("fullscreen") == 1; }
-        else
-        { fullscreen_button.isOn = true; }
-        
-        if (PlayerPrefs.HasKey("vsync"))
-        { vsync_button.isOn = PlayerPrefs.GetInt("vsync") == 1; }
-        else
-        { vsync_button.isOn = false; }
-        
-        if (PlayerPrefs.HasKey("bilinear_filtering"))
-        { bilinear_filtering_button.isOn = PlayerPrefs.GetInt("bilinear_filtering") == 1; }
-        else
-        { bilinear_filtering_button.isOn = false; }
+        fullscreen_button.isOn = (PlayerPrefs.GetInt("fullscreen") == 1);
+        vsync_button.isOn = (PlayerPrefs.GetInt("vsync") == 1);
+        bilinear_filtering_button.isOn = (PlayerPrefs.GetInt("bilinear_filtering") == 1);
+        bloom_button.isOn = (PlayerPrefs.GetInt("bloom") == 1);
+        flares_button.isOn = (PlayerPrefs.GetInt("flares") == 1);
 
-        if (PlayerPrefs.HasKey("bloom"))
-        { bloom_button.isOn = PlayerPrefs.GetInt("bloom") == 1; }
-        else
-        { bloom_button.isOn = false; }
-        
-        if (PlayerPrefs.HasKey("flares"))
-        { flares_button.isOn = PlayerPrefs.GetInt("flares") == 1; }
-        else
-        { flares_button.isOn = false; }
-
-        if (PlayerPrefs.HasKey("fov"))
-        {
-            fov_slider.value = PlayerPrefs.GetInt("fov") + 0.01f;
-            fov_text.text = PlayerPrefs.GetInt("fov") + "";
-        }
-        else
-        {
-            fov_slider.value = 100.01f;
-            fov_text.text = 100 + "";
-        }
-
-        if (PlayerPrefs.HasKey("frame_cap"))
-        {
-            frame_cap_slider.value = PlayerPrefs.GetInt("frame_cap") + 0.01f;
-            frame_cap_text.text = PlayerPrefs.GetInt("frame_cap") + "";
-        }
-        else
-        {
-            frame_cap_slider.value = 100.01f;
-            frame_cap_text.text = 100 + "";
-        }
-        
-        if (PlayerPrefs.HasKey("pixelization"))
-        {
-            pixelization_slider.value = PlayerPrefs.GetInt("pixelization") + 0.01f;
-            pixelization_text.text = PlayerPrefs.GetInt("pixelization") + "";
-        }
-        else
-        {
-            pixelization_slider.value = 0.01f;
-            pixelization_text.text = 0 + "";
-        }
-        
-        if (PlayerPrefs.HasKey("gamma"))
-        {
-            gamma_slider.value = PlayerPrefs.GetInt("gamma") + 0.01f;
-            gamma_text.text = PlayerPrefs.GetInt("gamma") + "";
-        }
-        else
-        {
-            gamma_slider.value = 100.01f;
-            gamma_text.text = 100 + "";
-        }
+        fov_slider.value = PlayerPrefs.GetInt("fov");
+        frame_cap_slider.value = PlayerPrefs.GetInt("frame_cap");
+        pixelization_slider.value = PlayerPrefs.GetInt("pixelization");
+        gamma_slider.value = PlayerPrefs.GetInt("gamma");
     }
 
     // Update is called once per frame
@@ -146,7 +93,8 @@ public class MenuScriptGraphics : MonoBehaviour
 
         if (bilinear_filtering_button.isOn)
         { PlayerPrefs.SetInt("bilinear_filtering", 1); }
-        else { PlayerPrefs.SetInt("bilinear_filtering", 0); }
+        else
+        { PlayerPrefs.SetInt("bilinear_filtering", 0); }
 
         if (bloom_button.isOn)
         { PlayerPrefs.SetInt("bloom", 1); }

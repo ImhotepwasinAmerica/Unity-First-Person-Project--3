@@ -56,4 +56,12 @@ public class DeveloperPreferences : MonoBehaviour
         PlayerPrefs.SetInt("pixelization",1);
         PlayerPrefs.SetInt("gamma",100);
     }
+
+    public static void Sound()
+    {
+        PlayerPrefs.SetInt("sound_universal",100);
+        PlayerPrefs.SetInt("sound_music",100);
+        PlayerPrefs.SetInt("sound_dialogue",100);
+        PlayerPrefs.SetInt("sound_environment",100);
+    }
 }

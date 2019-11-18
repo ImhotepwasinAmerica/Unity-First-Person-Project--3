@@ -68,6 +68,11 @@ public class MenuScriptSound : MonoBehaviour
         PlayerPrefs.SetInt("sound_music", ((int)music_slider.value));
         PlayerPrefs.SetInt("sound_dialogue", ((int)dialogue_slider.value));
         PlayerPrefs.SetInt("sound_environment", ((int)environment_slider.value));
+
+        universal_text.text = (int)universal_slider.value + "";
+        music_text.text = (int)music_slider.value + "";
+        dialogue_text.text = (int)dialogue_slider.value + "";
+        environment_text.text = (int)environment_slider.value + "";
     }
 
     public void Open_Options()
