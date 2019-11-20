@@ -11,6 +11,9 @@ public class DataContainer : MonoBehaviour
     //  "savedgames/saved_game_slot/saved_game_scene/..."
     public string saved_game_slot, saved_game_scene;
 
+    public Game game;
+    public Character character;
+
     private GameObject[] alla_deeze;
 
     // Start is called before the first frame update
@@ -25,6 +28,7 @@ public class DataContainer : MonoBehaviour
                 // No variables yet
                 this.saved_game_slot = alla_deeze[i].GetComponent<DataContainer>().saved_game_slot;
                 this.saved_game_scene = alla_deeze[i].GetComponent<DataContainer>().saved_game_scene;
+                this.game = alla_deeze[i].GetComponent<DataContainer>().game;
 
                 Destroy(alla_deeze[i]);
             }

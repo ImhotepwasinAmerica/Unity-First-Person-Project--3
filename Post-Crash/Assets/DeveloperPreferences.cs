@@ -64,4 +64,9 @@ public class DeveloperPreferences : MonoBehaviour
         PlayerPrefs.SetInt("sound_dialogue",100);
         PlayerPrefs.SetInt("sound_environment",100);
     }
+
+    public static void Gameplay()
+    {
+
+    }
 }
