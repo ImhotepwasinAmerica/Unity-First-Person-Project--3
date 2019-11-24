@@ -16,49 +16,20 @@ public class MenuScriptSound : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (PlayerPrefs.HasKey("sound_universal"))
+        if (!PlayerPrefs.HasKey("sound_universal"))
         {
-            universal_slider.value = PlayerPrefs.GetInt("sound_universal") + 0.01f;
-            universal_text.text = PlayerPrefs.GetInt("sound_universal") + "";
-        }
-        else
-        {
-            universal_slider.value = 100.01f;
-            universal_text.text = 100 + "";
+            DeveloperPreferences.Sound();
         }
 
-        if (PlayerPrefs.HasKey("sound_music"))
-        {
-            music_slider.value = PlayerPrefs.GetInt("sound_music") + 0.01f;
-            music_text.text = PlayerPrefs.GetInt("sound_music") + "";
-        }
-        else
-        {
-            music_slider.value = 100.01f;
-            music_text.text = 100 + "";
-        }
+        universal_slider.value = PlayerPrefs.GetInt("sound_universal") + 0.01f;
+        music_slider.value = PlayerPrefs.GetInt("sound_music") + 0.01f;
+        dialogue_slider.value = PlayerPrefs.GetInt("sound_dialogue") + 0.01f;
+        environment_slider.value = PlayerPrefs.GetInt("sound_environment") + 0.01f;
 
-        if (PlayerPrefs.HasKey("sound_dialogue"))
-        {
-            dialogue_slider.value = PlayerPrefs.GetInt("sound_dialogue") + 0.01f;
-            dialogue_text.text = PlayerPrefs.GetInt("sound_dialogue") + "";
-        }
-        else
-        {
-            dialogue_slider.value = 100.01f;
-            dialogue_text.text = 100 + "";
-        }
-
-        if (PlayerPrefs.HasKey("sound_environment"))
-        {
-            environment_slider.value = PlayerPrefs.GetInt("sound_environment") + 0.01f;
-            environment_text.text = PlayerPrefs.GetInt("sound_environment") + "";
-        }
-        else
-        {
-            environment_slider.value = 100.01f;
-            environment_text.text = 100 + "";
-        }
+        universal_text.text = PlayerPrefs.GetInt("sound_universal") + "";
+        music_text.text = PlayerPrefs.GetInt("sound_music") + "";
+        dialogue_text.text = PlayerPrefs.GetInt("sound_dialogue") + "";
+        environment_text.text = PlayerPrefs.GetInt("sound_environment") + "";
     }
 
     // Update is called once per frame

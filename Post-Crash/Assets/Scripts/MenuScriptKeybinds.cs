@@ -68,40 +68,7 @@ public class MenuScriptKeybinds : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //PlayerPrefs.SetString("General Action", action_general.text);
-        //PlayerPrefs.SetString("Toolbelt One", toolbelt_one.text);
-        //PlayerPrefs.SetString("Toolbelt Two", toolbelt_two.text);
-        //PlayerPrefs.SetString("Toolbelt Three", toolbelt_three.text);
-        //PlayerPrefs.SetString("Toolbelt Four", toolbelt_four.text);
-        //PlayerPrefs.SetString("Toolbelt Five", toolbelt_five.text);
-        //PlayerPrefs.SetString("Toolbelt Six", toolbelt_six.text);
-        //PlayerPrefs.SetString("Toolbelt Seven", toolbelt_seven.text);
-        //PlayerPrefs.SetString("Toolbelt Eight", toolbelt_eight.text);
-        //PlayerPrefs.SetString("Toolbelt Nine", toolbelt_nine.text);
-        //PlayerPrefs.SetString("Toolbelt Ten", toolbelt_ten.text);
-        //PlayerPrefs.SetString("Primary Attack", attack_primary.text);
-        //PlayerPrefs.SetString("Secondary Attack", attack_secondary.text);
-        //PlayerPrefs.SetString("Tertiary Attack", attack_tertiary.text);
-        //PlayerPrefs.SetString("Kick", kick.text);
-        //PlayerPrefs.SetString("Block", block.text);
-        //PlayerPrefs.SetString("Move Forward", move_forward.text);
-        //PlayerPrefs.SetString("Move Backward", move_backward.text);
-        //PlayerPrefs.SetString("Move Left", move_left.text);
-        //PlayerPrefs.SetString("Move Right", move_right.text);
-        //PlayerPrefs.SetString("Jump", jump.text);
-        //PlayerPrefs.SetString("Squat", squat.text);
-        //PlayerPrefs.SetString("Speed Toggle", speed_toggle.text);
-        //PlayerPrefs.SetString("Toolbelt Scroll Up", toolbelt_scroll_up.text);
-        //PlayerPrefs.SetString("Toolbelt Scroll Down", toolbelt_scroll_down.text);
-        //PlayerPrefs.SetString("Drop", drop.text);
-        //PlayerPrefs.SetString("Quicksave", quicksave.text);
-        //PlayerPrefs.SetString("Quickload", quickload.text);
-        //PlayerPrefs.SetString("Pause", pause.text);
-        //PlayerPrefs.SetString("Log", log.text);
-        //PlayerPrefs.SetString("Objectives", objectives.text);
-        //PlayerPrefs.SetString("Stats", stats.text);
-        //PlayerPrefs.SetString("Gamma Up", gamma_up.text);
-        //PlayerPrefs.SetString("Gamma Down", gamma_down.text);
+        
     }
 
     private void OnGUI()
@@ -159,7 +126,6 @@ public class MenuScriptKeybinds : MonoBehaviour
         current_button = null;
 
         PlayerPrefs.SetString(current_action,entry);
-        Debug.Log(current_action +" " + entry);
     }
 
     public void ChangeKey(GameObject clicked)

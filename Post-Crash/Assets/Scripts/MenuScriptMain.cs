@@ -13,7 +13,15 @@ public class MenuScriptMain : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (!PlayerPrefs.HasKey("General Action"))
+        {
+            DeveloperPreferences.Keybinds();
+        }
+
+        if (!PlayerPrefs.HasKey("fullscreen"))
+        {
+            DeveloperPreferences.Graphics();
+        }
     }
 
     // Update is called once per frame
@@ -37,11 +45,6 @@ public class MenuScriptMain : MonoBehaviour
         // indicates that the game has not been saved to a save slot yet.
         if (SceneManager.GetActiveScene().name == "MainMenu")
         {
-            //data_container.GetComponent<DataContainment>().game = new SavedGameScript();
-            //data_container.GetComponent<DataContainment>().saved_objects = new List<SavedObjectScript>();
-            //data_container.GetComponent<DataContainment>().game.NoneYet();
-            data_container.GetComponent<DataContainer>().saved_game_slot = "new game";
-
             LoadLevel01();
         }
         else
