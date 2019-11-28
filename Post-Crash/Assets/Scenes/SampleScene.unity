@@ -323,14 +323,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotation_thing: {fileID: 1380565132}
   data_container: {fileID: 0}
-  speed: 8
-  jump_takeoff_speed: 0
-  height_standing: 0
-  height_squatting: 0
-  lean_distance: 0
-  distance_to_ground: 0
-  gravity_fake: 0
-  speed_multiplier_squatting: 0
+  speed: 10
+  jump_takeoff_speed: 4
+  height_standing: 2
+  height_squatting: 1
+  lean_distance: 8
+  distance_to_ground: 1.3
+  speed_multiplier_squatting: 0.5
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -433,6 +432,7 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
+  - component: {fileID: 963194229}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -505,6 +505,25 @@ Transform:
   m_Father: {fileID: 1380565133}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &963194229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23cee96bad0e7064bbcc04f41363d82b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sensitivity: 2
+  smoothing: 1
+  reach: 0
+  held_object_anchor: {fileID: 0}
+  character: {fileID: 460089921}
+  data_containment: {fileID: 0}
+  why: 0
 --- !u!1 &1380565132
 GameObject:
   m_ObjectHideFlags: 0

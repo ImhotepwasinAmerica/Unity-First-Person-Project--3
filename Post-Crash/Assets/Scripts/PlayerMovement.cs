@@ -5,10 +5,10 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public GameObject rotation_thing, data_container;
-    public float speed, jump_takeoff_speed, height_standing, height_squatting, lean_distance, distance_to_ground, gravity_fake, speed_multiplier_squatting;
+    public float speed, jump_takeoff_speed, height_standing, height_squatting, lean_distance, distance_to_ground, speed_multiplier_squatting;
 
     private Vector3 velocity;
-    private float angular_speed, endgoal_horizontal, endgoal_vertical;
+    private float angular_speed, endgoal_horizontal, endgoal_vertical, gravity_fake, time_fake;
     private bool is_squatting, current_grounded, previous_grounded;
 
     private Transform transformation;
@@ -23,7 +23,9 @@ public class PlayerMovement : MonoBehaviour
         collider = GetComponent<CapsuleCollider>();
         
         angular_speed = Mathf.Sqrt((speed * speed / 2.0f));
-        gravity_fake = Physics.gravity.y;
+
+        time_fake = 0.01666f;
+        gravity_fake = Physics.gravity.y * time_fake;
     }
 
     // Update is called once per frame
@@ -39,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
 
         CycaBlyat();
 
-        MovementLean(velocity.y / (speed * Time.deltaTime));
+        MovementLean(velocity.x);
 
         previous_grounded = current_grounded;
         current_grounded = IsGrounded();
@@ -47,6 +49,11 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        velocity.x = Mathf.Lerp(velocity.x, endgoal_horizontal, 0.15f);
+        velocity.z = Mathf.Lerp(velocity.z, endgoal_vertical, 0.15f);
+
+        velocity = transformation.rotation * velocity;
+
         controller.Move(velocity);
     }
 
@@ -56,51 +63,53 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Input.GetButton(PlayerPrefs.GetString("Move Right")))
             {
-                endgoal_horizontal = 1 * angular_speed * Time.deltaTime;
-                endgoal_vertical = 1 * angular_speed * Time.deltaTime;
+                endgoal_horizontal = 1 * angular_speed * time_fake;
+                endgoal_vertical = 1 * angular_speed * time_fake;
             }
-            else if (Input.GetButton(PlayerPrefs.GetString("Move left")))
+            else if (Input.GetButton(PlayerPrefs.GetString("Move Left")))
             {
-                endgoal_horizontal = -1 * angular_speed * Time.deltaTime;
-                endgoal_vertical = 1 * angular_speed * Time.deltaTime;
+                endgoal_horizontal = -1 * angular_speed * time_fake;
+                endgoal_vertical = 1 * angular_speed * time_fake;
             }
             else
             {
-                endgoal_vertical = 1 * speed * Time.deltaTime;
+                endgoal_vertical = 1 * speed * time_fake;
             }
         }
         else if (Input.GetButton(PlayerPrefs.GetString("Move Backward")))
         {
             if (Input.GetButton(PlayerPrefs.GetString("Move Right")))
             {
-                endgoal_horizontal = 1 * angular_speed * Time.deltaTime;
-                endgoal_vertical = -1 * angular_speed * Time.deltaTime;
+                endgoal_horizontal = 1 * angular_speed * time_fake;
+                endgoal_vertical = -1 * angular_speed * time_fake;
             }
-            else if (Input.GetButton(PlayerPrefs.GetString("Move left")))
+            else if (Input.GetButton(PlayerPrefs.GetString("Move Left")))
             {
-                endgoal_horizontal = -1 * angular_speed * Time.deltaTime;
-                endgoal_vertical = -1 * angular_speed * Time.deltaTime;
+                endgoal_horizontal = -1 * angular_speed * time_fake;
+                endgoal_vertical = -1 * angular_speed * time_fake;
             }
             else
             {
-                endgoal_vertical = -1 * speed * Time.deltaTime;
+                endgoal_vertical = -1 * speed * time_fake;
             }
         }
-        else if (Input.GetButton(PlayerPrefs.GetString("Move left")))
+        else if (Input.GetButton(PlayerPrefs.GetString("Move Left")))
         {
-            endgoal_horizontal = -1 * speed * Time.deltaTime;
+            endgoal_horizontal = -1 * speed * time_fake;
         }
         else if (Input.GetButton(PlayerPrefs.GetString("Move Right")))
         {
-            endgoal_horizontal = 1 * speed * Time.deltaTime;
+            endgoal_horizontal = 1 * speed * time_fake;
         }
-        else if (!Input.GetButton(PlayerPrefs.GetString("Move left"))
+
+        if (!Input.GetButton(PlayerPrefs.GetString("Move Left"))
             && !Input.GetButton(PlayerPrefs.GetString("Move Right")))
         {
             endgoal_horizontal = 0;
         }
-        else if (Input.GetButton(PlayerPrefs.GetString("Move Forward"))
-            && Input.GetButton(PlayerPrefs.GetString("Move Backward")))
+
+        if (!Input.GetButton(PlayerPrefs.GetString("Move Forward"))
+            && !Input.GetButton(PlayerPrefs.GetString("Move Backward")))
         {
             endgoal_vertical = 0;
         }
@@ -111,11 +120,11 @@ public class PlayerMovement : MonoBehaviour
         // Better jumping and falling
         if (velocity.y < -0.00327654)
         {
-            velocity.y += gravity_fake * Time.deltaTime;
+            velocity.y += gravity_fake * time_fake;
         }
         else if (velocity.y > -0.00327654 && !(Input.GetButton(PlayerPrefs.GetString("Jump"))))
         {
-            velocity.y += 0.5f * gravity_fake * Time.deltaTime;
+            velocity.y += 0.5f * gravity_fake * time_fake;
         }
     }
 
@@ -123,11 +132,11 @@ public class PlayerMovement : MonoBehaviour
     {
         if (IsGrounded())
         {
-            velocity.y = (gravity_fake * Time.deltaTime);
+            velocity.y = (gravity_fake * time_fake);
         }
         else
         {
-            velocity.y += (gravity_fake * Time.deltaTime);
+            velocity.y += (gravity_fake * time_fake);
         }
     }
 
@@ -161,9 +170,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        if (Input.GetButton(PlayerPrefs.GetString("Jump")))
+        if (Input.GetButtonDown(PlayerPrefs.GetString("Jump"))
+            && IsGrounded())
         {
-            velocity.y = (jump_takeoff_speed * Time.deltaTime);
+            velocity.y = (jump_takeoff_speed * time_fake);
         }
     }
 
