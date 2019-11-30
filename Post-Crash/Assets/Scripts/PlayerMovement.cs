@@ -7,9 +7,10 @@ public class PlayerMovement : MonoBehaviour
     public GameObject rotation_thing, data_container;
     public float speed, jump_takeoff_speed, height_standing, height_squatting, lean_distance, distance_to_ground, speed_multiplier_squatting;
 
-    private Vector3 velocity;
-    private float angular_speed, endgoal_horizontal, endgoal_vertical, gravity_fake, time_fake;
+    private Vector3 velocity, velocity_endgoal;
+    private float angular_speed, gravity_fake, time_fake;
     private bool is_squatting, current_grounded, previous_grounded;
+    private Quaternion lean;
 
     private Transform transformation;
     private CharacterController controller;
@@ -21,11 +22,16 @@ public class PlayerMovement : MonoBehaviour
         transformation = GetComponent<Transform>();
         controller = GetComponent<CharacterController>();
         collider = GetComponent<CapsuleCollider>();
+
+        current_grounded = true;
+        previous_grounded = true;
         
         angular_speed = Mathf.Sqrt((speed * speed / 2.0f));
 
         time_fake = 0.01666f;
         gravity_fake = Physics.gravity.y * time_fake;
+
+        lean = Quaternion.Euler(0,0,0);
     }
 
     // Update is called once per frame
@@ -41,7 +47,13 @@ public class PlayerMovement : MonoBehaviour
 
         CycaBlyat();
 
-        MovementLean(velocity.x);
+        MovementLean();
+
+        velocity_endgoal = transformation.rotation * velocity_endgoal;
+
+        velocity.x = Mathf.Lerp(velocity.x, velocity_endgoal.x, 0.15f);
+        velocity.z = Mathf.Lerp(velocity.z, velocity_endgoal.z, 0.15f);
+        velocity.y = velocity_endgoal.y;
 
         previous_grounded = current_grounded;
         current_grounded = IsGrounded();
@@ -49,11 +61,6 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        velocity.x = Mathf.Lerp(velocity.x, endgoal_horizontal, 0.15f);
-        velocity.z = Mathf.Lerp(velocity.z, endgoal_vertical, 0.15f);
-
-        velocity = transformation.rotation * velocity;
-
         controller.Move(velocity);
     }
 
@@ -63,68 +70,68 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Input.GetButton(PlayerPrefs.GetString("Move Right")))
             {
-                endgoal_horizontal = 1 * angular_speed * time_fake;
-                endgoal_vertical = 1 * angular_speed * time_fake;
+                velocity_endgoal.x = 1 * angular_speed * time_fake;
+                velocity_endgoal.z = 1 * angular_speed * time_fake;
             }
             else if (Input.GetButton(PlayerPrefs.GetString("Move Left")))
             {
-                endgoal_horizontal = -1 * angular_speed * time_fake;
-                endgoal_vertical = 1 * angular_speed * time_fake;
+                velocity_endgoal.x = -1 * angular_speed * time_fake;
+                velocity_endgoal.z = 1 * angular_speed * time_fake;
             }
             else
             {
-                endgoal_vertical = 1 * speed * time_fake;
+                velocity_endgoal.z = 1 * speed * time_fake;
             }
         }
         else if (Input.GetButton(PlayerPrefs.GetString("Move Backward")))
         {
             if (Input.GetButton(PlayerPrefs.GetString("Move Right")))
             {
-                endgoal_horizontal = 1 * angular_speed * time_fake;
-                endgoal_vertical = -1 * angular_speed * time_fake;
+                velocity_endgoal.x = 1 * angular_speed * time_fake;
+                velocity_endgoal.z = -1 * angular_speed * time_fake;
             }
             else if (Input.GetButton(PlayerPrefs.GetString("Move Left")))
             {
-                endgoal_horizontal = -1 * angular_speed * time_fake;
-                endgoal_vertical = -1 * angular_speed * time_fake;
+                velocity_endgoal.x = -1 * angular_speed * time_fake;
+                velocity_endgoal.z = -1 * angular_speed * time_fake;
             }
             else
             {
-                endgoal_vertical = -1 * speed * time_fake;
+                velocity_endgoal.z = -1 * speed * time_fake;
             }
         }
         else if (Input.GetButton(PlayerPrefs.GetString("Move Left")))
         {
-            endgoal_horizontal = -1 * speed * time_fake;
+            velocity_endgoal.x = -1 * speed * time_fake;
         }
         else if (Input.GetButton(PlayerPrefs.GetString("Move Right")))
         {
-            endgoal_horizontal = 1 * speed * time_fake;
+            velocity_endgoal.x = 1 * speed * time_fake;
         }
 
         if (!Input.GetButton(PlayerPrefs.GetString("Move Left"))
             && !Input.GetButton(PlayerPrefs.GetString("Move Right")))
         {
-            endgoal_horizontal = 0;
+            velocity_endgoal.x = 0;
         }
 
         if (!Input.GetButton(PlayerPrefs.GetString("Move Forward"))
             && !Input.GetButton(PlayerPrefs.GetString("Move Backward")))
         {
-            endgoal_vertical = 0;
+            velocity_endgoal.z = 0;
         }
     }
 
     private void BetterMovement()
     {
         // Better jumping and falling
-        if (velocity.y < -0.00327654)
+        if (velocity_endgoal.y < -0.00327654)
         {
-            velocity.y += gravity_fake * time_fake;
+            velocity_endgoal.y += gravity_fake * time_fake;
         }
-        else if (velocity.y > -0.00327654 && !(Input.GetButton(PlayerPrefs.GetString("Jump"))))
+        else if (velocity_endgoal.y > -0.00327654 && !(Input.GetButton(PlayerPrefs.GetString("Jump"))))
         {
-            velocity.y += 0.5f * gravity_fake * time_fake;
+            velocity_endgoal.y += (0.5f * gravity_fake * time_fake);
         }
     }
 
@@ -132,11 +139,11 @@ public class PlayerMovement : MonoBehaviour
     {
         if (IsGrounded())
         {
-            velocity.y = (gravity_fake * time_fake);
+            velocity_endgoal.y = (gravity_fake * time_fake);
         }
         else
         {
-            velocity.y += (gravity_fake * time_fake);
+            velocity_endgoal.y += (gravity_fake * time_fake);
         }
     }
 
@@ -173,13 +180,14 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown(PlayerPrefs.GetString("Jump"))
             && IsGrounded())
         {
-            velocity.y = (jump_takeoff_speed * time_fake);
+            velocity_endgoal.y = (jump_takeoff_speed * time_fake);
         }
     }
 
-    private void MovementLean(float ex_input)
+    private void MovementLean()
     {
-        rotation_thing.transform.localRotation = Quaternion.Euler(0, 0, ex_input * -(lean_distance));
+        lean.z = Mathf.Lerp(lean.z, -velocity_endgoal.x/5, 0.09f);
+        rotation_thing.transform.localRotation = lean;
     }
 
     
@@ -188,8 +196,8 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButton(PlayerPrefs.GetString("Squat")) 
             && (collider.height > height_squatting))
         {
-            endgoal_horizontal *= speed_multiplier_squatting;
-            endgoal_vertical *= speed_multiplier_squatting;
+            velocity_endgoal.x *= speed_multiplier_squatting;
+            velocity_endgoal.z *= speed_multiplier_squatting;
 
             collider.height -= 0.1f;
             controller.height -= 0.1f;
