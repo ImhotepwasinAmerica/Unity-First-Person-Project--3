@@ -645,7 +645,7 @@ MonoBehaviour:
   sensitivity: 2
   smoothing: 1
   reach: 2
-  held_object_anchor: {fileID: 0}
+  held_object_anchor: {fileID: 452117373}
   character: {fileID: 460089921}
   data_containment: {fileID: 0}
   why: 0

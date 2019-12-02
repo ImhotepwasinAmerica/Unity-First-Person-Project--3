@@ -29,12 +29,10 @@ public class PlayerLooking : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        //general_action = data_containment.GetComponent<DataContainment>().binds.keybind_log[0];
-
-        if (Input.GetMouseButton(1))
+        if (Input.GetButton(PlayerPrefs.GetString("Secondary Attack")))
         {
-            //held_object_anchor.transform.Rotate(Input.GetAxisRaw("Mouse X") * Vector3.right);
-            //held_object_anchor.transform.Rotate(Input.GetAxisRaw("Mouse Y") * Vector3.down);
+            held_object_anchor.transform.Rotate(Input.GetAxisRaw("Mouse X") * Vector3.right);
+            held_object_anchor.transform.Rotate(Input.GetAxisRaw("Mouse Y") * Vector3.down);
         }
         else
         {
@@ -51,13 +49,13 @@ public class PlayerLooking : MonoBehaviour
         transform.localRotation = Quaternion.AngleAxis(-mouse_look.y, Vector3.right);
         character.transform.localRotation = Quaternion.Euler(0, why + mouse_look.x, 0);
 
-        // The 'E' button will both grab hold of and release a physics object 
+        // The 'General Action' button will both grab hold of and release a physics object 
         if (Input.GetButtonDown(PlayerPrefs.GetString("General Action")))
         {
             try
             {
                 usage_target = ReturnUsableObject();
-                //usage_target.GetComponent<ObjectDefaultBehavior>().UseDefault(held_object_anchor);
+                usage_target.GetComponent<ObjectBehaviorDefault>().UseDefault(held_object_anchor);
             }
             catch (System.NullReferenceException e)
             {
