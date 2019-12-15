@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ObjectBehaviorDefault : MonoBehaviour
 {
@@ -11,7 +12,8 @@ public class ObjectBehaviorDefault : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        GameEvents.current.DeleteAllTheThings += Destroy;
+        GameEvents.current.SaveAllTheThings += SaveItem;
     }
 
     // Update is called once per frame
@@ -65,12 +67,25 @@ public class ObjectBehaviorDefault : MonoBehaviour
     public void SpawnProceedings()
     {
         object_data = new SavedObject();
-        AddToRepository();
     }
 
     public void HealthChange(int hit_strength)
     {
         object_data.health += hit_strength;
+    }
+
+    public void Destroy()
+    {
+        GameObject.Destroy(object_in_question);
+    }
+
+    public void SaveItem()
+    {
+        Serialization.Save<SavedObject>(object_data,
+            Application.persistentDataPath + "/saves/savedgames/"
+            + data_container.GetComponent<DataContainer>().saved_game_slot
+            + "/" + SceneManager.GetActiveScene().name
+            + "scenes/scene.dat");
     }
 
     public virtual void UseDefault(GameObject new_anchor) { }

@@ -21,6 +21,9 @@ using System.IO;
  * 
  * Savegame data regarding individual scenes:
  * #Application.persistentDataPath#/saves/savedgames/#saveslot#/#scene#/scene
+ * 
+ * Savegame data regarding item and NPCs in scenes:
+ * #Application.persistentDataPath#/saves/savedgames/#saveslot#/#scene#/items/item
 */
 public class MenuScriptFiles : MonoBehaviour
 {
@@ -38,16 +41,16 @@ public class MenuScriptFiles : MonoBehaviour
     void Start()
     {
         InitiateSaveSlot(quicksave,Application.persistentDataPath + "/saves/savedgames/quicksave/game",0);
-        //InitiateSaveSlot(save1,Application.persistentDataPath + "/saves/savedgames/save1/game",1);
-        //InitiateSaveSlot(save2,Application.persistentDataPath + "/saves/savedgames/save2/game",2);
-        //InitiateSaveSlot(save3,Application.persistentDataPath + "/saves/savedgames/save3/game",3);
-        //InitiateSaveSlot(save4,Application.persistentDataPath + "/saves/savedgames/save4/game",4);
-        //InitiateSaveSlot(save5,Application.persistentDataPath + "/saves/savedgames/save5/game",5);
-        //InitiateSaveSlot(save6,Application.persistentDataPath + "/saves/savedgames/save6/game",6);
-        //InitiateSaveSlot(save7,Application.persistentDataPath + "/saves/savedgames/save7/game",7);
-        //InitiateSaveSlot(save8,Application.persistentDataPath + "/saves/savedgames/save8/game",8);
-        //InitiateSaveSlot(save9,Application.persistentDataPath + "/saves/savedgames/save9/game",9);
-        //InitiateSaveSlot(save10,Application.persistentDataPath + "/saves/savedgames/save10/game",10);
+        InitiateSaveSlot(save1, Application.persistentDataPath + "/saves/savedgames/save1/game", 1);
+        InitiateSaveSlot(save2, Application.persistentDataPath + "/saves/savedgames/save2/game", 2);
+        InitiateSaveSlot(save3, Application.persistentDataPath + "/saves/savedgames/save3/game", 3);
+        InitiateSaveSlot(save4, Application.persistentDataPath + "/saves/savedgames/save4/game", 4);
+        InitiateSaveSlot(save5, Application.persistentDataPath + "/saves/savedgames/save5/game", 5);
+        InitiateSaveSlot(save6, Application.persistentDataPath + "/saves/savedgames/save6/game", 6);
+        InitiateSaveSlot(save7, Application.persistentDataPath + "/saves/savedgames/save7/game", 7);
+        InitiateSaveSlot(save8, Application.persistentDataPath + "/saves/savedgames/save8/game", 8);
+        InitiateSaveSlot(save9, Application.persistentDataPath + "/saves/savedgames/save9/game", 9);
+        InitiateSaveSlot(save10, Application.persistentDataPath + "/saves/savedgames/save10/game", 10);
     }
 
     // Update is called once per frame
@@ -56,29 +59,29 @@ public class MenuScriptFiles : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "MainMenu")
         {
             button_save_0.SetActive(false);
-            //button_save_1.SetActive(false);
-            //button_save_2.SetActive(false);
-            //button_save_3.SetActive(false);
-            //button_save_4.SetActive(false);
-            //button_save_5.SetActive(false);
-            //button_save_6.SetActive(false);
-            //button_save_7.SetActive(false);
-            //button_save_8.SetActive(false);
-            //button_save_9.SetActive(false);
-            //button_save_10.SetActive(false);
+            button_save_1.SetActive(false);
+            button_save_2.SetActive(false);
+            button_save_3.SetActive(false);
+            button_save_4.SetActive(false);
+            button_save_5.SetActive(false);
+            button_save_6.SetActive(false);
+            button_save_7.SetActive(false);
+            button_save_8.SetActive(false);
+            button_save_9.SetActive(false);
+            button_save_10.SetActive(false);
         }
 
         button_load_0.SetActive(Serialization.DirectoryExists(Application.persistentDataPath + "/saves/savedgames/quicksave"));
-        //button_load_1.SetActive(Serialization.DirectoryExists(Application.persistentDataPath + "/saves/savedgames/save1"));
-        //button_load_2.SetActive(Serialization.DirectoryExists(Application.persistentDataPath + "/saves/savedgames/save2"));
-        //button_load_3.SetActive(Serialization.DirectoryExists(Application.persistentDataPath + "/saves/savedgames/save3"));
-        //button_load_4.SetActive(Serialization.DirectoryExists(Application.persistentDataPath + "/saves/savedgames/save4"));
-        //button_load_5.SetActive(Serialization.DirectoryExists(Application.persistentDataPath + "/saves/savedgames/save5"));
-        //button_load_6.SetActive(Serialization.DirectoryExists(Application.persistentDataPath + "/saves/savedgames/save6"));
-        //button_load_7.SetActive(Serialization.DirectoryExists(Application.persistentDataPath + "/saves/savedgames/save7"));
-        //button_load_8.SetActive(Serialization.DirectoryExists(Application.persistentDataPath + "/saves/savedgames/save8"));
-        //button_load_9.SetActive(Serialization.DirectoryExists(Application.persistentDataPath + "/saves/savedgames/save9"));
-        //button_load_10.SetActive(Serialization.DirectoryExists(Application.persistentDataPath + "/saves/savedgames/save10"));
+        button_load_1.SetActive(Serialization.DirectoryExists(Application.persistentDataPath + "/saves/savedgames/save1"));
+        button_load_2.SetActive(Serialization.DirectoryExists(Application.persistentDataPath + "/saves/savedgames/save2"));
+        button_load_3.SetActive(Serialization.DirectoryExists(Application.persistentDataPath + "/saves/savedgames/save3"));
+        button_load_4.SetActive(Serialization.DirectoryExists(Application.persistentDataPath + "/saves/savedgames/save4"));
+        button_load_5.SetActive(Serialization.DirectoryExists(Application.persistentDataPath + "/saves/savedgames/save5"));
+        button_load_6.SetActive(Serialization.DirectoryExists(Application.persistentDataPath + "/saves/savedgames/save6"));
+        button_load_7.SetActive(Serialization.DirectoryExists(Application.persistentDataPath + "/saves/savedgames/save7"));
+        button_load_8.SetActive(Serialization.DirectoryExists(Application.persistentDataPath + "/saves/savedgames/save8"));
+        button_load_9.SetActive(Serialization.DirectoryExists(Application.persistentDataPath + "/saves/savedgames/save9"));
+        button_load_10.SetActive(Serialization.DirectoryExists(Application.persistentDataPath + "/saves/savedgames/save10"));
     }
 
     public void InitiateSaveSlot(Text text, string directory, int index)
@@ -93,7 +96,7 @@ public class MenuScriptFiles : MonoBehaviour
 
     public void DeleteDirectory(string directory_partial)
     {
-        Serialization.DeleteDirectory(Application.persistentDataPath + directory_partial);
+        Serialization.DeleteDirectory(Application.persistentDataPath + "/saves/savedgames/" + directory_partial);
     }
 
     public void DeleteText(Text text)
@@ -155,5 +158,31 @@ public class MenuScriptFiles : MonoBehaviour
     public void Open_Options()
     {
         Open_Menu_Page(main_menu);
+    }
+
+    public void SaveButton(string slot)
+    {
+        // If a saved game has files stored in a different slot than what is being saved to, those files will be transferred over to the new slot, in their equivalent directories.
+        if (data_container.GetComponent<DataContainer>().saved_game_slot != "new game")
+        {
+            UnityEditor.FileUtil.CopyFileOrDirectory(
+                Application.persistentDataPath + "/saves/savedgames/" + data_container.GetComponent<DataContainer>().saved_game_slot,
+                Application.persistentDataPath + "/saves/savedgames/" + slot);
+        }
+        else
+        {
+            data_container.GetComponent<DataContainer>().saved_game_slot = slot;
+        }
+        
+        // The essential data of the game is saved.
+        Serialization.Save<Game>(data_container.GetComponent<DataContainer>().game, Application.persistentDataPath + "/saves/savedgames/" + slot + "/basicdata.dat");
+        Serialization.Save<Character>(data_container.GetComponent<DataContainer>().character, Application.persistentDataPath + "/saves/savedgames/" + slot + "/character.dat");
+
+        // The scene essential data is saved
+        Serialization.Save<Scene>(data_container.GetComponent<DataContainer>().scene, 
+            Application.persistentDataPath + "/saves/savedgames/" + slot + "/" + data_container.GetComponent<DataContainer>().saved_game_scene + "/scene.dat");
+
+        // The items in the current scene are saved
+        GameEvents.current.SaveAllItems();
     }
 }

@@ -29,7 +29,7 @@ public class PlayerLooking : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (Input.GetButton(PlayerPrefs.GetString("Secondary Attack")))
+        if (Input.GetButton(PlayerPrefs.GetString("Secondary Attack")) && held_thing != null)
         {
             held_object_anchor.transform.Rotate(Input.GetAxisRaw("Mouse X") * Vector3.right);
             held_object_anchor.transform.Rotate(Input.GetAxisRaw("Mouse Y") * Vector3.down);
@@ -56,6 +56,17 @@ public class PlayerLooking : MonoBehaviour
             {
                 usage_target = ReturnUsableObject();
                 usage_target.GetComponent<ObjectBehaviorDefault>().UseDefault(held_object_anchor);
+
+                if (usage_target.tag == "Holdable" && held_thing == null)
+                {
+                    held_thing = usage_target;
+                }
+                else if (held_thing != null)
+                {
+                    held_thing = null;
+                }
+
+                usage_target = null;
             }
             catch (System.NullReferenceException e)
             {

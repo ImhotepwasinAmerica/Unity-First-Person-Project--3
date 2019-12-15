@@ -13,6 +13,7 @@ public class DataContainer : MonoBehaviour
 
     public Game game;
     public Character character;
+    public Scene scene;
 
     private GameObject[] alla_deeze;
 
@@ -29,6 +30,7 @@ public class DataContainer : MonoBehaviour
                 this.saved_game_slot = alla_deeze[i].GetComponent<DataContainer>().saved_game_slot;
                 this.saved_game_scene = alla_deeze[i].GetComponent<DataContainer>().saved_game_scene;
                 this.game = alla_deeze[i].GetComponent<DataContainer>().game;
+                this.scene = alla_deeze[i].GetComponent<DataContainer>().scene;
 
                 Destroy(alla_deeze[i]);
             }
