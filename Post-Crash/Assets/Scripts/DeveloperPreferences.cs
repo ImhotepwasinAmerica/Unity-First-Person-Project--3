@@ -40,6 +40,7 @@ public class DeveloperPreferences : MonoBehaviour
         PlayerPrefs.SetString("Stats", "P");
         PlayerPrefs.SetString("Gamma Up", "Equals");
         PlayerPrefs.SetString("Gamma Down", "Minus");
+        PlayerPrefs.SetString("Item Rotate", "G");
     }
 
     public static void Graphics()
@@ -67,6 +68,9 @@ public class DeveloperPreferences : MonoBehaviour
 
     public static void Gameplay()
     {
-
+        PlayerPrefs.SetString("togglehold_carry", "toggle");
+        PlayerPrefs.SetString("togglehold_squat", "hold");
+        PlayerPrefs.SetInt("enemy_health_percentage", 100);
+        PlayerPrefs.SetInt("enemy_damage_percentage",100);
     }
 }

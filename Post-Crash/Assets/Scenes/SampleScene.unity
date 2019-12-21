@@ -267,7 +267,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &335958912
 MonoBehaviour:
@@ -323,7 +323,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &452117373
 GameObject:
@@ -563,7 +563,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 4e-45}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
@@ -668,7 +668,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 924210318}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 16.07, y: 2.66, z: 22.98}
+  m_LocalPosition: {x: 16.07, y: 3, z: 22.98}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 1881514249}
@@ -901,7 +901,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orientation: 0
   mirror: {fileID: 924210318}
-  character: {fileID: 460089921}
+  character: {fileID: 963194225}
   render_distance: 100
 --- !u!215 &1881514251
 ReflectionProbe:
@@ -1058,7 +1058,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ceb1bc80005af804a90caf006a301cb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  object_in_question: {fileID: 0}
+  object_in_question: {fileID: 2033594642}
   data_container: {fileID: 0}
   object_data:
     saved_thing: 

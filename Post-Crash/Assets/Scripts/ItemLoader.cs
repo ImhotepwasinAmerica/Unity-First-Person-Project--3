@@ -15,6 +15,8 @@ public class ItemLoader : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        has_been_created = false;
+
         if (Serialization.DirectoryExists(Application.persistentDataPath + "/saves/savedgames/"
             + data_container.GetComponent<DataContainer>().saved_game_slot
             + "/" + SceneManager.GetActiveScene().name))
@@ -37,8 +39,7 @@ public class ItemLoader : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (has_been_created = true
-            && index < files.Length)
+        if (has_been_created == true)
         {
             item_spawner.GetComponent<ItemSpawner>().item_stack.Push(Serialization.Load<SavedObject>(
                 Application.persistentDataPath + "/saves/savedgames/"

@@ -66,104 +66,49 @@ public class PlayerMovement : MonoBehaviour
 
     private void Walk()
     {
-        if (Input.GetButton(PlayerPrefs.GetString("Move Forward")))
-        {
-            if (Input.GetButton(PlayerPrefs.GetString("Move Right")))
-            {
-                velocity_endgoal.x = 1 * angular_speed * time_fake;
-                velocity_endgoal.z = 1 * angular_speed * time_fake;
-            }
-            else if (Input.GetButton(PlayerPrefs.GetString("Move Left")))
-            {
-                velocity_endgoal.x = -1 * angular_speed * time_fake;
-                velocity_endgoal.z = 1 * angular_speed * time_fake;
-            }
-            else
-            {
-                velocity_endgoal.z = 1 * speed * time_fake;
-            }
-        }
-        else if (Input.GetButton(PlayerPrefs.GetString("Move Backward")))
-        {
-            if (Input.GetButton(PlayerPrefs.GetString("Move Right")))
-            {
-                velocity_endgoal.x = 1 * angular_speed * time_fake;
-                velocity_endgoal.z = -1 * angular_speed * time_fake;
-            }
-            else if (Input.GetButton(PlayerPrefs.GetString("Move Left")))
-            {
-                velocity_endgoal.x = -1 * angular_speed * time_fake;
-                velocity_endgoal.z = -1 * angular_speed * time_fake;
-            }
-            else
-            {
-                velocity_endgoal.z = -1 * speed * time_fake;
-            }
-        }
-        else if (Input.GetButton(PlayerPrefs.GetString("Move Left")))
-        {
-            velocity_endgoal.x = -1 * speed * time_fake;
-        }
-        else if (Input.GetButton(PlayerPrefs.GetString("Move Right")))
-        {
-            velocity_endgoal.x = 1 * speed * time_fake;
-        }
-
-        if (!Input.GetButton(PlayerPrefs.GetString("Move Left"))
-            && !Input.GetButton(PlayerPrefs.GetString("Move Right")))
-        {
-            velocity_endgoal.x = 0;
-        }
-
-        if (!Input.GetButton(PlayerPrefs.GetString("Move Forward"))
+        if (Input.GetButton(PlayerPrefs.GetString("Move Forward"))
             && !Input.GetButton(PlayerPrefs.GetString("Move Backward")))
+        {
+            velocity_endgoal.z = time_fake;
+        }
+        else if (!Input.GetButton(PlayerPrefs.GetString("Move Forward"))
+            && Input.GetButton(PlayerPrefs.GetString("Move Backward")))
+        {
+            velocity_endgoal.z = -time_fake;
+        }
+        else
         {
             velocity_endgoal.z = 0;
         }
 
-        //if (Input.GetButton(PlayerPrefs.GetString("Move Forward"))
-        //    && !Input.GetButton(PlayerPrefs.GetString("Move Backward")))
-        //{
-        //    velocity_endgoal.z = time_fake;
-        //}
-        //else if (!Input.GetButton(PlayerPrefs.GetString("Move Forward"))
-        //    && Input.GetButton(PlayerPrefs.GetString("Move Backward")))
-        //{
-        //    velocity_endgoal.z = -time_fake;
-        //}
-        //else
-        //{
-        //    velocity_endgoal.z = 0;
-        //}
+        if (Input.GetButton(PlayerPrefs.GetString("Move Right"))
+            && !Input.GetButton(PlayerPrefs.GetString("Move Left")))
+        {
+            velocity_endgoal.x = time_fake;
+        }
+        else if (!Input.GetButton(PlayerPrefs.GetString("Move Right"))
+            && Input.GetButton(PlayerPrefs.GetString("Move Left")))
+        {
+            velocity_endgoal.x = -time_fake;
+        }
+        else
+        {
+            velocity_endgoal.x = 0;
+        }
 
-        //if (Input.GetButton(PlayerPrefs.GetString("Move Left"))
-        //    && !Input.GetButton(PlayerPrefs.GetString("Move Right")))
-        //{
-        //    velocity_endgoal.x = time_fake;
-        //}
-        //else if (!Input.GetButton(PlayerPrefs.GetString("Move Left"))
-        //    && Input.GetButton(PlayerPrefs.GetString("Move Right")))
-        //{
-        //    velocity_endgoal.x = -time_fake;
-        //}
-        //else
-        //{
-        //    velocity_endgoal.x = 0;
-        //}
-
-        //if ( (Input.GetButton(PlayerPrefs.GetString("Move Forward")) && Input.GetButton(PlayerPrefs.GetString("Move Left")))
-        //    || (Input.GetButton(PlayerPrefs.GetString("Move Forward")) && Input.GetButton(PlayerPrefs.GetString("Move Right")))
-        //    || (Input.GetButton(PlayerPrefs.GetString("Move Backward")) && Input.GetButton(PlayerPrefs.GetString("Move Left")))
-        //    || (Input.GetButton(PlayerPrefs.GetString("Move Backward")) && Input.GetButton(PlayerPrefs.GetString("Move Right"))))
-        //{
-        //    velocity_endgoal.z *= angular_speed;
-        //    velocity_endgoal.x *= angular_speed;
-        //}
-        //else
-        //{
-        //    velocity_endgoal.z *= speed;
-        //    velocity_endgoal.x *= speed;
-        //}
+        if ((Input.GetButton(PlayerPrefs.GetString("Move Forward")) && Input.GetButton(PlayerPrefs.GetString("Move Left")))
+            || (Input.GetButton(PlayerPrefs.GetString("Move Forward")) && Input.GetButton(PlayerPrefs.GetString("Move Right")))
+            || (Input.GetButton(PlayerPrefs.GetString("Move Backward")) && Input.GetButton(PlayerPrefs.GetString("Move Left")))
+            || (Input.GetButton(PlayerPrefs.GetString("Move Backward")) && Input.GetButton(PlayerPrefs.GetString("Move Right"))))
+        {
+            velocity_endgoal.z *= angular_speed;
+            velocity_endgoal.x *= angular_speed;
+        }
+        else
+        {
+            velocity_endgoal.z *= speed;
+            velocity_endgoal.x *= speed;
+        }
     }
 
     private void BetterMovement()

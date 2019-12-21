@@ -40,16 +40,6 @@ public class ObjectBehaviorDefault : MonoBehaviour
         return object_data;
     }
 
-    public void AddToRepository()
-    {
-        //data_container.GetComponent<DataContainer>().saved_objects.Add(object_data);
-    }
-
-    public void DeleteFromRepository()
-    {
-        //data_container.GetComponent<DataContainer>().saved_objects.Remove(object_data);
-    }
-
     public void RecordRotation()
     {
         object_data.thing_rotation[0] = object_in_question.transform.rotation.x;
@@ -85,7 +75,7 @@ public class ObjectBehaviorDefault : MonoBehaviour
             Application.persistentDataPath + "/saves/savedgames/"
             + data_container.GetComponent<DataContainer>().saved_game_slot
             + "/" + SceneManager.GetActiveScene().name
-            + "scenes/scene.dat");
+            + "/items/object.dat");
     }
 
     public virtual void UseDefault(GameObject new_anchor) { }

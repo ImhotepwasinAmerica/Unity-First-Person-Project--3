@@ -19,7 +19,7 @@ public class MenuScriptKeybinds : MonoBehaviour
         toolbelt_six, toolbelt_seven, toolbelt_eight, toolbelt_nine, toolbelt_ten,
         toolbelt_scroll_up, toolbelt_scroll_down, drop,
         quicksave, quickload, pause, log, objectives, stats,
-        gamma_up, gamma_down;
+        gamma_up, gamma_down, item_rotate;
 
     // Start is called before the first frame update
     void Start()
@@ -63,6 +63,8 @@ public class MenuScriptKeybinds : MonoBehaviour
         stats.text = PlayerPrefs.GetString("Stats");
         gamma_up.text = PlayerPrefs.GetString("Gamma Up");
         gamma_down.text = PlayerPrefs.GetString("Gamma Down");
+        item_rotate.text = PlayerPrefs.GetString("Item Rotate");
+
     }
 
     // Update is called once per frame

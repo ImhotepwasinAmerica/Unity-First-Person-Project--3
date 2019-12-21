@@ -21,11 +21,11 @@ public class MirrorProbe : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (Vector3.Distance(mirror.transform.position, character.transform.position) < render_distance)
+        if (Vector3.Distance(mirror.transform.position, Camera.main.transform.position) < render_distance)
         {
             if (orientation == Directions.X)
             {
-                offset = mirror.transform.position.x - character.transform.position.x;
+                offset = mirror.transform.position.x - Camera.main.transform.position.x;
 
                 probePos.x = mirror.transform.position.x + offset;
                 probePos.y = character.transform.position.y;
@@ -33,7 +33,7 @@ public class MirrorProbe : MonoBehaviour
             }
             else if (orientation == Directions.Y)
             {
-                offset = mirror.transform.position.y - character.transform.position.y;
+                offset = mirror.transform.position.y - Camera.main.transform.position.y;
 
                 probePos.x = character.transform.position.x;
                 probePos.y = mirror.transform.position.y + offset;
@@ -41,7 +41,7 @@ public class MirrorProbe : MonoBehaviour
             }
             else if (orientation == Directions.Z)
             {
-                offset = mirror.transform.position.z - character.transform.position.z;
+                offset = mirror.transform.position.z - Camera.main.transform.position.z;
 
                 probePos.x = character.transform.position.x;
                 probePos.y = character.transform.position.y;

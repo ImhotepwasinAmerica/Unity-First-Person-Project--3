@@ -27,17 +27,9 @@ public class PlayerLooking : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
-        if (Input.GetButton(PlayerPrefs.GetString("Secondary Attack")) && held_thing != null)
-        {
-            held_object_anchor.transform.Rotate(Input.GetAxisRaw("Mouse X") * Vector3.right);
-            held_object_anchor.transform.Rotate(Input.GetAxisRaw("Mouse Y") * Vector3.down);
-        }
-        else
-        {
-            md = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
-        }
+        GetInput();
 
         md = Vector2.Scale(md, new Vector2(sensitivity * smoothing, sensitivity * smoothing));
         smooth_v.x = Mathf.Lerp(smooth_v.x, md.x, 1f / smoothing);
@@ -49,22 +41,36 @@ public class PlayerLooking : MonoBehaviour
         transform.localRotation = Quaternion.AngleAxis(-mouse_look.y, Vector3.right);
         character.transform.localRotation = Quaternion.Euler(0, why + mouse_look.x, 0);
 
-        // The 'General Action' button will both grab hold of and release a physics object 
+        GeneralAction();
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        
+    }
+
+    private void GetInput()
+    {
+        if (Input.GetButton(PlayerPrefs.GetString("Item Rotate")))
+        {
+            held_object_anchor.transform.Rotate(Input.GetAxisRaw("Mouse X") * Vector3.right);
+            held_object_anchor.transform.Rotate(Input.GetAxisRaw("Mouse Y") * Vector3.down);
+        }
+        else
+        {
+            md = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
+        }
+    }
+    
+    private void GeneralAction()
+    {
         if (Input.GetButtonDown(PlayerPrefs.GetString("General Action")))
         {
             try
             {
                 usage_target = ReturnUsableObject();
                 usage_target.GetComponent<ObjectBehaviorDefault>().UseDefault(held_object_anchor);
-
-                if (usage_target.tag == "Holdable" && held_thing == null)
-                {
-                    held_thing = usage_target;
-                }
-                else if (held_thing != null)
-                {
-                    held_thing = null;
-                }
 
                 usage_target = null;
             }
