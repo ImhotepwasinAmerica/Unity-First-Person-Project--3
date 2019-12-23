@@ -29,7 +29,7 @@ public class PlayerLooking : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GetInput();
+        GeneralAction();
 
         md = Vector2.Scale(md, new Vector2(sensitivity * smoothing, sensitivity * smoothing));
         smooth_v.x = Mathf.Lerp(smooth_v.x, md.x, 1f / smoothing);
@@ -37,17 +37,15 @@ public class PlayerLooking : MonoBehaviour
         mouse_look += smooth_v;
 
         mouse_look.y = Mathf.Clamp(mouse_look.y, -90f, 90f);
-
-        transform.localRotation = Quaternion.AngleAxis(-mouse_look.y, Vector3.right);
-        character.transform.localRotation = Quaternion.Euler(0, why + mouse_look.x, 0);
-
-        GeneralAction();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        
+        GetInput();
+
+        transform.localRotation = Quaternion.AngleAxis(-mouse_look.y, Vector3.right);
+        character.transform.localRotation = Quaternion.Euler(0, why + mouse_look.x, 0);
     }
 
     private void GetInput()

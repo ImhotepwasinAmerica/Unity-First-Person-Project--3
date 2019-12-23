@@ -18,17 +18,8 @@ public class ControlsMiscellaneous : MonoBehaviour
     {
         if (Input.GetButtonDown(PlayerPrefs.GetString("Pause")))
         {
-            if (paused && !keybindings_menu.activeSelf)
+            if (paused)
             {
-                options_menu.SetActive(false);
-                keybindings_menu.SetActive(false);
-                graphics_menu.SetActive(false);
-                sound_menu.SetActive(false);
-                gameplay_menu.SetActive(false);
-                game_files_menu.SetActive(false);
-
-                main_menu.SetActive(true);
-
                 Resume();
             }
             else

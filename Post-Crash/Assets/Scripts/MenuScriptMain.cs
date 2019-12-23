@@ -49,7 +49,7 @@ public class MenuScriptMain : MonoBehaviour
         }
         else
         {
-            //some_controls.GetComponent<SomeControls>().Resume();
+            some_controls.GetComponent<ControlsMiscellaneous>().Resume();
         }
     }
 

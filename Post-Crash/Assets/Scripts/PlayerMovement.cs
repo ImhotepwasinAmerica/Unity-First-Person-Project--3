@@ -40,9 +40,7 @@ public class PlayerMovement : MonoBehaviour
         Walk();
 
         BetterMovement();
-
         ApplyGravity();
-
         Jump();
 
         CycaBlyat();
