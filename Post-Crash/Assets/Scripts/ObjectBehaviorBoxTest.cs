@@ -12,7 +12,6 @@ public class ObjectBehaviorBoxTest : ObjectBehaviorDefault
 
         if (health < 0)
         {
-            //data_container.GetComponent<DataContainer>().saved_objects.Remove(object_data);
             Object.Destroy(object_in_question);
         }
     }

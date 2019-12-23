@@ -75,10 +75,10 @@ public class ObjectBehaviorDefault : MonoBehaviour
             Application.persistentDataPath + "/saves/savedgames/"
             + data_container.GetComponent<DataContainer>().saved_game_slot
             + "/" + SceneManager.GetActiveScene().name
-            + "/items/object.dat");
+            + "/items/" + this.gameObject.GetInstanceID() + ".dat"); // The instance ID serves as the name of the object data file in memory
     }
 
-    public virtual void UseDefault(GameObject new_anchor) { }
+    public virtual void UseDefault(GameObject thing) { }
 
     public virtual void UseDefault() { }
 
