@@ -19,7 +19,7 @@ public class ObjectBehaviorDefault : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (object_in_question != null
+        if (this.gameObject != null
             && data_container != null
             && object_data != null)
         {
@@ -42,16 +42,18 @@ public class ObjectBehaviorDefault : MonoBehaviour
 
     public void RecordRotation()
     {
-        object_data.thing_rotation[0] = object_in_question.transform.rotation.x;
-        object_data.thing_rotation[1] = object_in_question.transform.rotation.y;
-        object_data.thing_rotation[2] = object_in_question.transform.rotation.z;
+        //object_data.thing_rotation[0] = this.gameObject.transform.rotation.x;
+        //object_data.thing_rotation[1] = this.gameObject.transform.rotation.y;
+        //object_data.thing_rotation[2] = this.gameObject.transform.rotation.z;
+        object_data.thing_rotation = this.gameObject.transform.rotation;
     }
 
     public void RecordPosition()
     {
-        object_data.thing_position[0] = object_in_question.transform.position.x;
-        object_data.thing_position[1] = object_in_question.transform.position.y;
-        object_data.thing_position[2] = object_in_question.transform.position.z;
+        //object_data.thing_position[0] = this.gameObject.transform.position.x;
+        //object_data.thing_position[1] = this.gameObject.transform.position.y;
+        //object_data.thing_position[2] = this.gameObject.transform.position.z;
+        object_data.thing_position = this.gameObject.transform.position;
     }
 
     public void SpawnProceedings()
@@ -66,7 +68,7 @@ public class ObjectBehaviorDefault : MonoBehaviour
 
     public void Destroy()
     {
-        GameObject.Destroy(object_in_question);
+        GameObject.Destroy(gameObject);
     }
 
     public void SaveItem()
@@ -76,6 +78,28 @@ public class ObjectBehaviorDefault : MonoBehaviour
             + data_container.GetComponent<DataContainer>().saved_game_slot
             + "/" + SceneManager.GetActiveScene().name
             + "/items/" + this.gameObject.GetInstanceID() + ".dat"); // The instance ID serves as the name of the object data file in memory
+    }
+
+    public void DestroyOrChange()
+    {
+        if (Serialization.SaveExists(
+            Application.persistentDataPath + "/saves/savedgames/"
+            + data_container.GetComponent<DataContainer>().saved_game_slot
+            + "/" + SceneManager.GetActiveScene().name
+            + "/presentitems/" + this.gameObject.GetInstanceID() + ".dat"))
+        {
+            object_data = Serialization.Load<SavedObject>(Application.persistentDataPath + "/saves/savedgames/"
+            + data_container.GetComponent<DataContainer>().saved_game_slot
+            + "/" + SceneManager.GetActiveScene().name
+            + "/presentitems/" + this.gameObject.GetInstanceID() + ".dat");
+
+            this.gameObject.transform.rotation = object_data.thing_rotation;
+            this.gameObject.transform.position = object_data.thing_position;
+        }
+        else
+        {
+            this.Destroy();
+        }
     }
 
     public virtual void UseDefault(GameObject thing) { }

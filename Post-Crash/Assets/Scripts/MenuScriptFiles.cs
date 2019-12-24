@@ -23,7 +23,10 @@ using System.IO;
  * #Application.persistentDataPath#/saves/savedgames/#saveslot#/#scene#/scene
  * 
  * Savegame data regarding item and NPCs in scenes:
- * #Application.persistentDataPath#/saves/savedgames/#saveslot#/#scene#/items/item
+ * #Application.persistentDataPath#/saves/savedgames/#saveslot#/#scene#/items/#item#
+ * 
+ * Savegame data regarding items and NPCs which were already in the scene, and therefore need not be destroyed
+ * #Application.persistentDataPath#/saves/savedgames/#saveslot#/#scene#/presentitems/#item#
 */
 public class MenuScriptFiles : MonoBehaviour
 {

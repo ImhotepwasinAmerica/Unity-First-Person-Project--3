@@ -8,8 +8,8 @@ public class SavedObject
 {
     public string saved_thing;
 
-    public float[] thing_rotation;
-    public float[] thing_position;
+    public Quaternion thing_rotation;
+    public Vector3 thing_position;
 
     public int health;
     public int max_health;
