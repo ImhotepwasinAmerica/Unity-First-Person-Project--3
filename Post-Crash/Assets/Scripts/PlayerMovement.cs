@@ -40,7 +40,9 @@ public class PlayerMovement : MonoBehaviour
         Walk();
 
         BetterMovement();
+
         ApplyGravity();
+
         Jump();
 
         CycaBlyat();
@@ -112,7 +114,7 @@ public class PlayerMovement : MonoBehaviour
     private void BetterMovement()
     {
         // Better jumping and falling
-        if (velocity_endgoal.y < -0.00327654)
+        if (velocity_endgoal.y < -0.00327654 && Time.timeScale > 0.1f)
         {
             velocity_endgoal.y += gravity_fake * time_fake;
         }
@@ -130,8 +132,12 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            velocity_endgoal.y += (gravity_fake * time_fake);
+            if (Time.timeScale > 0.1f)
+            {
+                velocity_endgoal.y += (gravity_fake * time_fake);
+            }
         }
+        Debug.Log(velocity_endgoal.y);
     }
 
     private bool IsGrounded()

@@ -15,7 +15,7 @@ public class ItemCaller : MonoBehaviour
         //    + data_container.GetComponent<DataContainer>().saved_game_slot
         //    + "/" + SceneManager.GetActiveScene().name))
         //{
-        //    GameEvents.current.DeleteAllItems();
+        //    GameEvents.current.DeleteSmartly();
         //}
     }
 

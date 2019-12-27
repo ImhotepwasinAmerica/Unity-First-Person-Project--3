@@ -14,6 +14,7 @@ public class ObjectBehaviorDefault : MonoBehaviour
     {
         GameEvents.current.DeleteAllTheThings += Destroy;
         GameEvents.current.SaveAllTheThings += SaveItem;
+        GameEvents.current.SmartDelete += DestroyOrChange;
     }
 
     // Update is called once per frame
