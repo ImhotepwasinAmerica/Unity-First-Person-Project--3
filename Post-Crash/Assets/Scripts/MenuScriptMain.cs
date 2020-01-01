@@ -45,6 +45,10 @@ public class MenuScriptMain : MonoBehaviour
         // indicates that the game has not been saved to a save slot yet.
         if (SceneManager.GetActiveScene().name == "MainMenu")
         {
+            data_container.GetComponent<DataContainer>().saved_game_slot = "new game";
+            data_container.GetComponent<DataContainer>().game = new Game();
+            data_container.GetComponent<DataContainer>().character = new Character();
+
             LoadLevel01();
         }
         else

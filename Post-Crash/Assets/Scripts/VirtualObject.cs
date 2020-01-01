@@ -1,16 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
 [System.Serializable]
-public class SavedObject
+public class VirtualObject
 {
     public string saved_thing;
 
-    public float rotation_x, rotation_y, rotation_z;
-
-    public float position_x, position_y, position_z;
+    public Vector2 mass;
 
     public int health, max_health;
 

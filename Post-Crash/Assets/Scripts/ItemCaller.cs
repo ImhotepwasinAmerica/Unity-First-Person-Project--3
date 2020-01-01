@@ -11,12 +11,12 @@ public class ItemCaller : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //if (Serialization.DirectoryExists(Application.persistentDataPath + "/saves/savedgames/"
-        //    + data_container.GetComponent<DataContainer>().saved_game_slot
-        //    + "/" + SceneManager.GetActiveScene().name))
-        //{
-        //    GameEvents.current.DeleteSmartly();
-        //}
+        if (Serialization.DirectoryExists(Application.persistentDataPath + "/saves/savedgames/"
+            + data_container.GetComponent<DataContainer>().saved_game_slot
+            + "/" + SceneManager.GetActiveScene().name))
+        {
+            GameEvents.current.DeleteSmartly();
+        }
     }
 
     // Update is called once per frame

@@ -12,7 +12,8 @@ public class Serialization : MonoBehaviour
         BinaryFormatter formatter = new BinaryFormatter();
 
         FileStream stream = File.Create(path);
-        formatter.Serialize(stream, thing);
+        formatter.Serialize(stream, 
+            thing);
         stream.Close();
     }
 
@@ -43,6 +44,14 @@ public class Serialization : MonoBehaviour
     public static bool DirectoryExists(string path)
     {
         return Directory.Exists(path);
+    }
+
+    public static void CreateDirectory(string path)
+    {
+        if (!Directory.Exists(path))
+        {
+            Directory.CreateDirectory(path);
+        }
     }
 
     // A directory is deleted, and everything in it.

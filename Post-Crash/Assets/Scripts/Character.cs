@@ -2,17 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Character : MonoBehaviour
+[System.Serializable]
+public class Character
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float rotation_x, rotation_y, rotation_z;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public float position_x, position_y, position_z;
+
+    public int health, max_health;
+
+    public float weight;
+
+    public bool invincible, switch_on, weapon_ammo_count;
+
+    public ArrayList inventory;
+
+    public VirtualObject[] toolbelt;
 }

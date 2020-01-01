@@ -61,6 +61,10 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        velocity.x = Mathf.Lerp(velocity.x, velocity_endgoal.x, 0.15f);
+        velocity.z = Mathf.Lerp(velocity.z, velocity_endgoal.z, 0.15f);
+        velocity.y = velocity_endgoal.y;
+
         controller.Move(velocity);
     }
 
@@ -137,7 +141,6 @@ public class PlayerMovement : MonoBehaviour
                 velocity_endgoal.y += (gravity_fake * time_fake);
             }
         }
-        Debug.Log(velocity_endgoal.y);
     }
 
     private bool IsGrounded()

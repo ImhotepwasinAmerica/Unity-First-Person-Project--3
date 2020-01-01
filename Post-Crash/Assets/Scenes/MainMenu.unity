@@ -34347,7 +34347,19 @@ MonoBehaviour:
   this_thing: {fileID: 1803985527}
   saved_game_slot: 
   saved_game_scene: 
-  character: {fileID: 0}
+  game:
+    current_scene_name: 
+    saveslot_label: 
+  character:
+    thing_rotation: {x: 0, y: 0, z: 0, w: 0}
+    thing_position: {x: 0, y: 0, z: 0}
+    health: 0
+    max_health: 0
+    weight: 0
+    invincible: 0
+    switch_on: 0
+    weapon_ammo_count: 0
+    toolbelt: []
 --- !u!1 &1814631092
 GameObject:
   m_ObjectHideFlags: 0

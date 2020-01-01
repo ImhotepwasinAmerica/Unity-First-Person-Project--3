@@ -7,7 +7,7 @@ public class ObjectBehaviorDefault : MonoBehaviour
 {
     public GameObject object_in_question, data_container;
     public SavedObject object_data;
-    public bool has_been_interacted;
+    public bool has_been_interacted, is_original;
 
     // Start is called before the first frame update
     void Start()
@@ -15,6 +15,8 @@ public class ObjectBehaviorDefault : MonoBehaviour
         GameEvents.current.DeleteAllTheThings += Destroy;
         GameEvents.current.SaveAllTheThings += SaveItem;
         GameEvents.current.SmartDelete += DestroyOrChange;
+
+        is_original = true;
     }
 
     // Update is called once per frame
@@ -43,18 +45,18 @@ public class ObjectBehaviorDefault : MonoBehaviour
 
     public void RecordRotation()
     {
-        //object_data.thing_rotation[0] = this.gameObject.transform.rotation.x;
-        //object_data.thing_rotation[1] = this.gameObject.transform.rotation.y;
-        //object_data.thing_rotation[2] = this.gameObject.transform.rotation.z;
-        object_data.thing_rotation = this.gameObject.transform.rotation;
+        object_data.rotation_x = this.gameObject.transform.rotation.x;
+        object_data.rotation_y = this.gameObject.transform.rotation.y;
+        object_data.rotation_z = this.gameObject.transform.rotation.z;
+        //object_data.thing_rotation = this.gameObject.transform.rotation;
     }
 
     public void RecordPosition()
     {
-        //object_data.thing_position[0] = this.gameObject.transform.position.x;
-        //object_data.thing_position[1] = this.gameObject.transform.position.y;
-        //object_data.thing_position[2] = this.gameObject.transform.position.z;
-        object_data.thing_position = this.gameObject.transform.position;
+        object_data.position_x = this.gameObject.transform.position.x;
+        object_data.position_y = this.gameObject.transform.position.y;
+        object_data.position_z = this.gameObject.transform.position.z;
+        //object_data.thing_position = this.gameObject.transform.position;
     }
 
     public void SpawnProceedings()
@@ -74,11 +76,27 @@ public class ObjectBehaviorDefault : MonoBehaviour
 
     public void SaveItem()
     {
-        Serialization.Save<SavedObject>(object_data,
-            Application.persistentDataPath + "/saves/savedgames/"
-            + data_container.GetComponent<DataContainer>().saved_game_slot
-            + "/" + SceneManager.GetActiveScene().name
-            + "/items/" + this.gameObject.GetInstanceID() + ".dat"); // The instance ID serves as the name of the object data file in memory
+        Serialization.CreateDirectory(Application.persistentDataPath + "/saves/savedgames/"
+                + data_container.GetComponent<DataContainer>().saved_game_slot
+                + "/" + SceneManager.GetActiveScene().name
+                + "/presentitems");
+
+        if (is_original)
+        {
+            Serialization.Save<SavedObject>(object_data,
+                Application.persistentDataPath + "/saves/savedgames/"
+                + data_container.GetComponent<DataContainer>().saved_game_slot
+                + "/" + SceneManager.GetActiveScene().name
+                + "/presentitems/" + this.gameObject.GetInstanceID() + ".dat"); // The instance ID serves as the name of the object data file in memory
+        }
+        else
+        {
+            Serialization.Save<SavedObject>(object_data,
+                Application.persistentDataPath + "/saves/savedgames/"
+                + data_container.GetComponent<DataContainer>().saved_game_slot
+                + "/" + SceneManager.GetActiveScene().name
+                + "/items/" + this.gameObject.GetInstanceID() + ".dat");
+        }
     }
 
     public void DestroyOrChange()
@@ -94,8 +112,15 @@ public class ObjectBehaviorDefault : MonoBehaviour
             + "/" + SceneManager.GetActiveScene().name
             + "/presentitems/" + this.gameObject.GetInstanceID() + ".dat");
 
-            this.gameObject.transform.rotation = object_data.thing_rotation;
-            this.gameObject.transform.position = object_data.thing_position;
+            this.gameObject.transform.rotation = Quaternion.Euler(
+                object_data.rotation_x,
+                object_data.rotation_y,
+                object_data.rotation_z);
+
+            this.gameObject.transform.position = new Vector3(
+                object_data.position_x,
+                object_data.position_y,
+                object_data.position_z);
         }
         else
         {

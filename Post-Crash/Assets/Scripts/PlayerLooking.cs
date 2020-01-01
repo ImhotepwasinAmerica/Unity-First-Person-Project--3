@@ -31,12 +31,12 @@ public class PlayerLooking : MonoBehaviour
     {
         GeneralAction();
 
-        md = Vector2.Scale(md, new Vector2(sensitivity * smoothing, sensitivity * smoothing));
-        smooth_v.x = Mathf.Lerp(smooth_v.x, md.x, 1f / smoothing);
-        smooth_v.y = Mathf.Lerp(smooth_v.y, md.y, 1f / smoothing);
-        mouse_look += smooth_v;
+        //md = Vector2.Scale(md, new Vector2(sensitivity * smoothing, sensitivity * smoothing));
+        //smooth_v.x = Mathf.Lerp(smooth_v.x, md.x, 1f / smoothing);
+        //smooth_v.y = Mathf.Lerp(smooth_v.y, md.y, 1f / smoothing);
+        //mouse_look += smooth_v;
 
-        mouse_look.y = Mathf.Clamp(mouse_look.y, -90f, 90f);
+        //mouse_look.y = Mathf.Clamp(mouse_look.y, -90f, 90f);
     }
 
     // Update is called once per frame
@@ -44,8 +44,8 @@ public class PlayerLooking : MonoBehaviour
     {
         GetInput();
 
-        transform.localRotation = Quaternion.AngleAxis(-mouse_look.y, Vector3.right);
-        character.transform.localRotation = Quaternion.Euler(0, why + mouse_look.x, 0);
+        //transform.localRotation = Quaternion.AngleAxis(-mouse_look.y, Vector3.right);
+        //character.transform.localRotation = Quaternion.Euler(0, why + mouse_look.x, 0);
     }
 
     private void GetInput()
@@ -58,6 +58,16 @@ public class PlayerLooking : MonoBehaviour
         else
         {
             md = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
+
+            md = Vector2.Scale(md, new Vector2(sensitivity * smoothing, sensitivity * smoothing));
+            smooth_v.x = Mathf.Lerp(smooth_v.x, md.x, 1f / smoothing);
+            smooth_v.y = Mathf.Lerp(smooth_v.y, md.y, 1f / smoothing);
+            mouse_look += smooth_v;
+
+            mouse_look.y = Mathf.Clamp(mouse_look.y, -90f, 90f);
+
+            transform.localRotation = Quaternion.AngleAxis(-mouse_look.y, Vector3.right);
+            character.transform.localRotation = Quaternion.Euler(0, why + mouse_look.x, 0);
         }
     }
     

@@ -10,7 +10,8 @@ using System.IO;
  * MenuScriptFiles
  * Author:          Andrew Potisk
  * Finalized on:    --/--/----
- * Purpose:         These scripts handle all operations on the game files menu.
+ * Purpose:
+ * These scripts handle all operations on the game files menu.
  * 
  * Notes:
  * This is how the game's files are organized:
@@ -107,6 +108,11 @@ public class MenuScriptFiles : MonoBehaviour
         text.text = "";
     }
 
+    public void FindDate(Text text)
+    {
+        text.text = System.DateTime.Now.ToLongTimeString() + System.DateTime.Now.ToLongDateString();
+    }
+
     public void SetSlot(string slot)
     {
         data_container.GetComponent<DataContainer>().saved_game_slot = slot;
@@ -176,7 +182,13 @@ public class MenuScriptFiles : MonoBehaviour
         {
             data_container.GetComponent<DataContainer>().saved_game_slot = slot;
         }
-        
+
+        // If the directory to which the data must be saved does not exist,
+        // said directory is created.
+        Serialization.CreateDirectory(Application.persistentDataPath + "/saves/savedgames/" 
+            + data_container.GetComponent<DataContainer>().saved_game_slot
+            + data_container.GetComponent<DataContainer>().saved_game_scene);
+
         // The essential data of the game is saved.
         Serialization.Save<Game>(data_container.GetComponent<DataContainer>().game, Application.persistentDataPath + "/saves/savedgames/" + slot + "/basicdata.dat");
         Serialization.Save<Character>(data_container.GetComponent<DataContainer>().character, Application.persistentDataPath + "/saves/savedgames/" + slot + "/character.dat");
@@ -187,5 +199,10 @@ public class MenuScriptFiles : MonoBehaviour
 
         // The items in the current scene are saved
         GameEvents.current.SaveAllItems();
+    }
+
+    public void EstablishDate(Text text)
+    {
+
     }
 }
