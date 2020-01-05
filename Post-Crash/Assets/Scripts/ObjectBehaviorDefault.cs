@@ -76,11 +76,6 @@ public class ObjectBehaviorDefault : MonoBehaviour
 
     public void SaveItem()
     {
-        Serialization.CreateDirectory(Application.persistentDataPath + "/saves/savedgames/"
-                + data_container.GetComponent<DataContainer>().saved_game_slot
-                + "/" + SceneManager.GetActiveScene().name
-                + "/presentitems");
-
         if (is_original)
         {
             Serialization.Save<SavedObject>(object_data,

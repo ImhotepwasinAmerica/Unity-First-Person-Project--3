@@ -187,7 +187,13 @@ public class MenuScriptFiles : MonoBehaviour
         // said directory is created.
         Serialization.CreateDirectory(Application.persistentDataPath + "/saves/savedgames/" 
             + data_container.GetComponent<DataContainer>().saved_game_slot
-            + data_container.GetComponent<DataContainer>().saved_game_scene);
+            + "/" + SceneManager.GetActiveScene().name
+            + "/presentitems");
+
+        Serialization.CreateDirectory(Application.persistentDataPath + "/saves/savedgames/"
+            + data_container.GetComponent<DataContainer>().saved_game_slot
+            + "/" + SceneManager.GetActiveScene().name
+            + "/items");
 
         // The essential data of the game is saved.
         Serialization.Save<Game>(data_container.GetComponent<DataContainer>().game, Application.persistentDataPath + "/saves/savedgames/" + slot + "/basicdata.dat");

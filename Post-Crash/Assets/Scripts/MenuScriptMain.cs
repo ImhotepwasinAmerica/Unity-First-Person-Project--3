@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class MenuScriptMain : MonoBehaviour
 {
-    public GameObject data_container, main_menu, loading_screen, options_menu, load_game_menu, some_controls;
+    public GameObject data_container, main_menu, loading_screen, options_menu, load_game_menu, manual_menu, some_controls;
     public Text newresume_text, quitmainmenu_text;
     public Slider slider;
 
@@ -113,5 +113,10 @@ public class MenuScriptMain : MonoBehaviour
     public void Open_Load_Level()
     {
         OpenMenuPage(load_game_menu);
+    }
+
+    public void Open_Manual()
+    {
+        OpenMenuPage(manual_menu);
     }
 }

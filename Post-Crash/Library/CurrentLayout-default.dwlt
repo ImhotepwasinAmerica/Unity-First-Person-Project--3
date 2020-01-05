@@ -73,7 +73,7 @@ MonoBehaviour:
   m_MinSize: {x: 785, y: 344}
   m_MaxSize: {x: 16010, y: 8044}
   vertical: 0
-  controlID: 143
+  controlID: 77
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -177,7 +177,7 @@ MonoBehaviour:
     y: 0
     width: 1536
     height: 781
-  m_MinSize: {x: 950, y: 300}
+  m_MinSize: {x: 950, y: 394}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &8
 MonoBehaviour:
@@ -329,7 +329,7 @@ MonoBehaviour:
   m_ViewDataDictionary: {fileID: 0}
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 39798
+  m_LastSelectedObjectID: 12452
 --- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -409,9 +409,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 433.52786, y: 174.36636, z: -18.220886}
+    m_Target: {x: -2.1551013, y: 18.837126, z: -795.4764}
     speed: 2
-    m_Value: {x: 433.52786, y: 174.36636, z: -18.220886}
+    m_Value: {x: -2.1551013, y: 18.837126, z: -795.4764}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -444,9 +444,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 28.886017
+    m_Target: 90.11651
     speed: 2
-    m_Value: 28.886017
+    m_Value: 90.11651
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -734,21 +734,21 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 702f0000
       m_LastClickedID: 0
-      m_ExpandedIDs: 78dfffffdce1ffff0aecffff90eeffff1ef0ffff3ef5ffff60f8ffff68fbffffa43f0000d4400000f2420000c0450000c2490000
+      m_ExpandedIDs: fa9dfffffc9fffff30a0ffffc4a5ffff14a6ffff70a7ffffe0a9ffffaaacffffbeaeffffaebfffff16c3ffffbcc6ffffc2c7ffff38c9ffffcccaffffdeccffff6eceffff44e6ffffc0e6ffff34f0ffffe6f7ffff68fbffff123f0000a43f0000c23f00005ec20000c8e9000054fb0000149a010002a00100f0e10100b60c02005626020094540200e85b02003a5d020090000300c46e0300508003003286030094b90300
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: 
-        m_OriginalName: 
+        m_Name: MenuManual (1)
+        m_OriginalName: MenuManual (1)
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 0
+        m_UserData: -23956
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 11
+        m_OriginalEventType: 0
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 5}
       m_SearchString: 
@@ -818,18 +818,18 @@ MonoBehaviour:
       y: 17
       width: 606
       height: 391
-    m_Scale: {x: 1.2155226, y: 1.2155226}
-    m_Translation: {x: 303, y: 195.5}
+    m_Scale: {x: 1.2099942, y: 1.2099942}
+    m_Translation: {x: 303, y: 195.50002}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -249.27548
-      y: -160.83617
-      width: 498.55096
-      height: 321.67233
+      x: -250.41443
+      y: -161.57103
+      width: 500.82886
+      height: 323.14206
     m_MinimalGUI: 1
   m_defaultScale: 1
   m_TargetTexture: {fileID: 0}
