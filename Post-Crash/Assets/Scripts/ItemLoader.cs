@@ -26,26 +26,27 @@ public class ItemLoader : MonoBehaviour
             + "/" + SceneManager.GetActiveScene().name
             + "/items");
 
-            index = 0;
+            if (files.Length > 0)
+            {
+                index = files.Length-1; // Off-by-one error avided \o/
 
-            has_been_created = true;
-        }
-        else
-        {
-            has_been_created = false;
+                while (index >= 0)
+                {
+                    item_spawner.GetComponent<ItemSpawner>().item_stack.Push(Serialization.Load<SavedObject>(
+                        Application.persistentDataPath + "/saves/savedgames/"
+                    + data_container.GetComponent<DataContainer>().saved_game_slot
+                    + "/" + SceneManager.GetActiveScene().name
+                    + "/items/" + files[index]));
+
+                    index--;
+                }
+            }
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (has_been_created == true)
-        {
-            item_spawner.GetComponent<ItemSpawner>().item_stack.Push(Serialization.Load<SavedObject>(
-                Application.persistentDataPath + "/saves/savedgames/"
-            + data_container.GetComponent<DataContainer>().saved_game_slot
-            + "/" + SceneManager.GetActiveScene().name
-            + "/items/" + files[index]));
-        }
+        
     }
 }

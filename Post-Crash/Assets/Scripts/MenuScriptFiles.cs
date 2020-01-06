@@ -127,11 +127,11 @@ public class MenuScriptFiles : MonoBehaviour
     {
         data_container.GetComponent<DataContainer>().game = 
             Serialization.Load<Game>(Application.persistentDataPath + "/saves/savedgames/" + 
-            data_container.GetComponent<DataContainer>().saved_game_slot + "/game");
+            data_container.GetComponent<DataContainer>().saved_game_slot + "/game.dat");
 
         data_container.GetComponent<DataContainer>().character =
             Serialization.Load<Character>(Application.persistentDataPath + "/saves/savedgames/" +
-            data_container.GetComponent<DataContainer>().saved_game_slot + "/character");
+            data_container.GetComponent<DataContainer>().saved_game_slot + "/character.dat");
     }
 
     public void LoadMainMenu()
@@ -196,12 +196,19 @@ public class MenuScriptFiles : MonoBehaviour
             + "/items");
 
         // The essential data of the game is saved.
-        Serialization.Save<Game>(data_container.GetComponent<DataContainer>().game, Application.persistentDataPath + "/saves/savedgames/" + slot + "/basicdata.dat");
-        Serialization.Save<Character>(data_container.GetComponent<DataContainer>().character, Application.persistentDataPath + "/saves/savedgames/" + slot + "/character.dat");
+        Serialization.Save<Game>(data_container.GetComponent<DataContainer>().game, 
+            Application.persistentDataPath + "/saves/savedgames/"
+            + data_container.GetComponent<DataContainer>().saved_game_slot + "/game.dat");
+
+        Serialization.Save<Character>(data_container.GetComponent<DataContainer>().character,
+            Application.persistentDataPath + "/saves/savedgames/"
+            + data_container.GetComponent<DataContainer>().saved_game_slot + "/character.dat");
 
         // The scene essential data is saved
-        Serialization.Save<Scene>(data_container.GetComponent<DataContainer>().scene, 
-            Application.persistentDataPath + "/saves/savedgames/" + slot + "/" + data_container.GetComponent<DataContainer>().saved_game_scene + "/scene.dat");
+        Serialization.Save<Scene>(data_container.GetComponent<DataContainer>().scene,
+            Application.persistentDataPath + "/saves/savedgames/"
+            + data_container.GetComponent<DataContainer>().saved_game_slot
+            + "/" + SceneManager.GetActiveScene().name + "/scene.dat");
 
         // The items in the current scene are saved
         GameEvents.current.SaveAllItems();
