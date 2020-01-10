@@ -73,7 +73,7 @@ MonoBehaviour:
   m_MinSize: {x: 785, y: 344}
   m_MaxSize: {x: 16010, y: 8044}
   vertical: 0
-  controlID: 135
+  controlID: 98
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -568,19 +568,19 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes
+    - Assets/Scripts
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scenes
+  - Assets/Scripts
   m_LastFoldersGridSize: 64
   m_LastProjectPath: C:\Users\potis\Documents\GitHub\Unity-First-Person-Project--3\Post-Crash
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 5a2d0000
-    m_LastClickedID: 11610
+    m_SelectedIDs: 4c2e0000
+    m_LastClickedID: 11852
     m_ExpandedIDs: 00000000e62c0000102d0000442f00006c2f000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -634,9 +634,9 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 722f0000
-    m_LastClickedInstanceID: 12146
-    m_HadKeyboardFocusLastEvent: 1
+    m_SelectedInstanceIDs: 1a260000
+    m_LastClickedInstanceID: 9754
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c62300001a39000054e0feff7a06000000000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -732,9 +732,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 722f0000
+      m_SelectedIDs: 1a260000
       m_LastClickedID: 0
-      m_ExpandedIDs: 58d9ffffbce0ffff68fbffffae3000003a3100007a320000a2340000a03b0000443c0000065d0100
+      m_ExpandedIDs: 68fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 

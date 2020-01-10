@@ -8,10 +8,14 @@ public class ObjectBehaviorDefault : MonoBehaviour
     public GameObject object_in_question, data_container;
     public SavedObject object_data;
     public bool has_been_interacted, is_original;
+    public float id;
 
     // Start is called before the first frame update
     void Start()
     {
+        id = this.gameObject.transform.position.sqrMagnitude;
+        Debug.Log(id);
+
         GameEvents.current.DeleteAllTheThings += Destroy;
         GameEvents.current.SaveAllTheThings += SaveItem;
         GameEvents.current.SmartDelete += DestroyOrChange;
@@ -82,7 +86,7 @@ public class ObjectBehaviorDefault : MonoBehaviour
                 Application.persistentDataPath + "/saves/savedgames/"
                 + data_container.GetComponent<DataContainer>().saved_game_slot
                 + "/" + SceneManager.GetActiveScene().name
-                + "/presentitems/" + this.gameObject.GetInstanceID() + ".dat"); // The instance ID serves as the name of the object data file in memory
+                + "/presentitems/" + this.id + ".dat"); // The instance ID serves as the name of the object data file in memory
         }
         else
         {
@@ -90,7 +94,7 @@ public class ObjectBehaviorDefault : MonoBehaviour
                 Application.persistentDataPath + "/saves/savedgames/"
                 + data_container.GetComponent<DataContainer>().saved_game_slot
                 + "/" + SceneManager.GetActiveScene().name
-                + "/items/" + this.gameObject.GetInstanceID() + ".dat");
+                + "/items/" + this.id + ".dat");
         }
     }
 
@@ -100,12 +104,12 @@ public class ObjectBehaviorDefault : MonoBehaviour
             Application.persistentDataPath + "/saves/savedgames/"
             + data_container.GetComponent<DataContainer>().saved_game_slot
             + "/" + SceneManager.GetActiveScene().name
-            + "/presentitems/" + this.gameObject.GetInstanceID() + ".dat"))
+            + "/presentitems/" + this.id + ".dat"))
         {
             object_data = Serialization.Load<SavedObject>(Application.persistentDataPath + "/saves/savedgames/"
             + data_container.GetComponent<DataContainer>().saved_game_slot
             + "/" + SceneManager.GetActiveScene().name
-            + "/presentitems/" + this.gameObject.GetInstanceID() + ".dat");
+            + "/presentitems/" + this.id + ".dat");
 
             this.gameObject.transform.rotation = Quaternion.Euler(
                 object_data.rotation_x,
