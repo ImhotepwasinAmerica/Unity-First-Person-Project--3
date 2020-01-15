@@ -61,6 +61,7 @@ public class GameEvents : MonoBehaviour
 
     public void DeleteSmartly()
     {
+        Debug.Log("Preexisting item alter command engaged");
         if (SmartDelete != null)
         {
             SmartDelete();

@@ -35099,7 +35099,6 @@ MonoBehaviour:
     max_health: 0
     weight: 0
     invincible: 0
-    switch_on: 0
     weapon_ammo_count: 0
     toolbelt: []
   scene:

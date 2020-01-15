@@ -9,17 +9,63 @@ public class LevelManager : MonoBehaviour
     private Vector3 character_position;
     private Quaternion character_rotation;
     private Character guy;
-    
+
+    public void Awake()
+    {
+        if (Serialization.SaveExists(Application.persistentDataPath + "/saves/savedgames/" +
+            PlayerPrefs.GetString("saved_game_slot") + "/game.dat"))
+        {
+            data_container.GetComponent<DataContainer>().game =
+                Serialization.Load<Game>(Application.persistentDataPath + "/saves/savedgames/" +
+                PlayerPrefs.GetString("saved_game_slot") + "/game.dat");
+        }
+        else
+        {
+            data_container.GetComponent<DataContainer>().game = new Game();
+        }
+
+        if (Serialization.SaveExists(Application.persistentDataPath + "/saves/savedgames/" +
+            PlayerPrefs.GetString("saved_game_slot") + "/" + SceneManager.GetActiveScene().name + "/scene.dat"))
+        {
+            data_container.GetComponent<DataContainer>().scene =
+                Serialization.Load<Scene>(Application.persistentDataPath + "/saves/savedgames/" +
+                PlayerPrefs.GetString("saved_game_slot") + "/" + SceneManager.GetActiveScene().name + "/scene.dat");
+        }
+        else
+        {
+            data_container.GetComponent<DataContainer>().character = new Character();
+        }
+        
+        if (Serialization.SaveExists(Application.persistentDataPath + "/saves/savedgames/" +
+            PlayerPrefs.GetString("saved_game_slot") + "/character.dat"))
+        {
+            data_container.GetComponent<DataContainer>().character =
+                Serialization.Load<Character>(Application.persistentDataPath + "/saves/savedgames/" +
+                PlayerPrefs.GetString("saved_game_slot") + "/character.dat");
+        }
+        else
+        {
+            data_container.GetComponent<DataContainer>().scene = new Scene();
+        }
+        
+
+        data_container.GetComponent<DataContainer>().saved_game_scene = SceneManager.GetActiveScene().name;
+        data_container.GetComponent<DataContainer>().saved_game_slot = PlayerPrefs.GetString("saved_game_slot");
+        data_container.GetComponent<DataContainer>().game.current_scene_name = SceneManager.GetActiveScene().name;
+        data_container.GetComponent<DataContainer>().game.saveslot_label = PlayerPrefs.GetString("saved_game_slot");
+    }
+
     // Start is called before the first frame update
     void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+
         guy = data_container.GetComponent<DataContainer>().character;
 
-        if (data_container.GetComponent<DataContainer>().character.rotation_x != null) // It will be necessary to alter the position and rotation of the character when entering a new scene
+        if (data_container.GetComponent<DataContainer>().character.rotation_x != null
+            && Serialization.SaveExists(Application.persistentDataPath + "/saves/savedgames/"
+            + PlayerPrefs.GetString("saved_game_slot") + "/character.dat")) // It will be necessary to alter the position and rotation of the character when entering a new scene
         {
-            data_container.GetComponent<DataContainer>().saved_game_scene = SceneManager.GetActiveScene().name;
-            data_container.GetComponent<DataContainer>().game.current_scene_name = SceneManager.GetActiveScene().name;
-
             character.transform.position = new Vector3(
                 guy.position_x,
                 guy.position_y,

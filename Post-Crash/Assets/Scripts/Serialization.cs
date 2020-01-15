@@ -12,8 +12,7 @@ public class Serialization : MonoBehaviour
         BinaryFormatter formatter = new BinaryFormatter();
 
         FileStream stream = File.Create(path);
-        formatter.Serialize(stream, 
-            thing);
+        formatter.Serialize(stream, thing);
         stream.Close();
     }
 

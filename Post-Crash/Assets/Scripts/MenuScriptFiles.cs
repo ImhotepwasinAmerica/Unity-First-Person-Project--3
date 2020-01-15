@@ -115,23 +115,28 @@ public class MenuScriptFiles : MonoBehaviour
 
     public void SetSlot(string slot)
     {
-        data_container.GetComponent<DataContainer>().saved_game_slot = slot;
+        //data_container.GetComponent<DataContainer>().saved_game_slot = slot;
+        PlayerPrefs.SetString("saved_game_slot", slot);
     }
 
     public void SetScene()
     {
-        data_container.GetComponent<DataContainer>().saved_game_scene = data_container.GetComponent<DataContainer>().game.current_scene_name;
+        //data_container.GetComponent<DataContainer>().saved_game_scene = data_container.GetComponent<DataContainer>().game.current_scene_name;
     }
 
     public void LoadInfo()
     {
-        data_container.GetComponent<DataContainer>().game = 
-            Serialization.Load<Game>(Application.persistentDataPath + "/saves/savedgames/" + 
-            data_container.GetComponent<DataContainer>().saved_game_slot + "/game.dat");
+        data_container.GetComponent<DataContainer>().game =
+            Serialization.Load<Game>(Application.persistentDataPath + "/saves/savedgames/" +
+            PlayerPrefs.GetString("saved_game_slot") + "/game.dat");
 
-        data_container.GetComponent<DataContainer>().character =
-            Serialization.Load<Character>(Application.persistentDataPath + "/saves/savedgames/" +
-            data_container.GetComponent<DataContainer>().saved_game_slot + "/character.dat");
+        //data_container.GetComponent<DataContainer>().character =
+        //    Serialization.Load<Character>(Application.persistentDataPath + "/saves/savedgames/" +
+        //    data_container.GetComponent<DataContainer>().saved_game_slot + "/character.dat");
+
+        //Debug.Log(data_container.GetComponent<DataContainer>().character.position_x);
+        //Debug.Log(data_container.GetComponent<DataContainer>().character.max_health);
+        //Debug.Log(data_container.GetComponent<DataContainer>().game.current_scene_name);
     }
 
     public void LoadMainMenu()
@@ -171,6 +176,8 @@ public class MenuScriptFiles : MonoBehaviour
 
     public void SaveButton(string slot)
     {
+        PlayerPrefs.SetString("saved_game_slot", slot);
+
         // If a saved game has files stored in a different slot than what is being saved to, those files will be transferred over to the new slot, in their equivalent directories.
         if (data_container.GetComponent<DataContainer>().saved_game_slot != "new game")
         {
@@ -186,12 +193,12 @@ public class MenuScriptFiles : MonoBehaviour
         // If the directory to which the data must be saved does not exist,
         // said directory is created.
         Serialization.CreateDirectory(Application.persistentDataPath + "/saves/savedgames/" 
-            + data_container.GetComponent<DataContainer>().saved_game_slot
+            + PlayerPrefs.GetString("saved_game_slot")
             + "/" + SceneManager.GetActiveScene().name
             + "/presentitems");
 
         Serialization.CreateDirectory(Application.persistentDataPath + "/saves/savedgames/"
-            + data_container.GetComponent<DataContainer>().saved_game_slot
+            + PlayerPrefs.GetString("saved_game_slot")
             + "/" + SceneManager.GetActiveScene().name
             + "/items");
 
@@ -202,16 +209,19 @@ public class MenuScriptFiles : MonoBehaviour
 
         Serialization.Save<Character>(data_container.GetComponent<DataContainer>().character,
             Application.persistentDataPath + "/saves/savedgames/"
-            + data_container.GetComponent<DataContainer>().saved_game_slot + "/character.dat");
+            + PlayerPrefs.GetString("saved_game_slot") + "/character.dat");
 
         // The scene essential data is saved
         Serialization.Save<Scene>(data_container.GetComponent<DataContainer>().scene,
             Application.persistentDataPath + "/saves/savedgames/"
-            + data_container.GetComponent<DataContainer>().saved_game_slot
+            + PlayerPrefs.GetString("saved_game_slot")
             + "/" + SceneManager.GetActiveScene().name + "/scene.dat");
 
         // The items in the current scene are saved
         GameEvents.current.SaveAllItems();
+
+        //Debug.Log(data_container.GetComponent<DataContainer>().character.position_x);
+        //Debug.Log(data_container.GetComponent<DataContainer>().game.current_scene_name);
     }
 
     public void EstablishDate(Text text)

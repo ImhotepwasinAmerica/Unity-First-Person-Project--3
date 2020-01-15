@@ -176,7 +176,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown(PlayerPrefs.GetString("Jump"))
             && IsGrounded())
         {
-            velocity_endgoal.y = (jump_takeoff_speed * time_fake);
+            velocity_endgoal.y += (jump_takeoff_speed * time_fake);
         }
     }
 

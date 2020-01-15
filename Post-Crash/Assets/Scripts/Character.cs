@@ -13,7 +13,7 @@ public class Character
 
     public float weight;
 
-    public bool invincible, switch_on, weapon_ammo_count;
+    public bool invincible, weapon_ammo_count;
 
     public ArrayList inventory;
 

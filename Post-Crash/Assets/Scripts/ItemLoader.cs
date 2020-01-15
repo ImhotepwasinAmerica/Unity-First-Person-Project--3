@@ -18,23 +18,23 @@ public class ItemLoader : MonoBehaviour
         has_been_created = false;
 
         if (Serialization.DirectoryExists(Application.persistentDataPath + "/saves/savedgames/"
-            + data_container.GetComponent<DataContainer>().saved_game_slot
+            + PlayerPrefs.GetString("saved_game_slot")
             + "/" + SceneManager.GetActiveScene().name))
         {
             files = Directory.GetFiles(Application.persistentDataPath + "/saves/savedgames/"
-            + data_container.GetComponent<DataContainer>().saved_game_slot
+            + PlayerPrefs.GetString("saved_game_slot")
             + "/" + SceneManager.GetActiveScene().name
             + "/items");
 
             if (files.Length > 0)
             {
-                index = files.Length-1; // Off-by-one error avided \o/
+                index = files.Length-1; // Off-by-one error avoided \o/
 
                 while (index >= 0)
                 {
                     item_spawner.GetComponent<ItemSpawner>().item_stack.Push(Serialization.Load<SavedObject>(
                         Application.persistentDataPath + "/saves/savedgames/"
-                    + data_container.GetComponent<DataContainer>().saved_game_slot
+                    + PlayerPrefs.GetString("saved_game_slot")
                     + "/" + SceneManager.GetActiveScene().name
                     + "/items/" + files[index]));
 

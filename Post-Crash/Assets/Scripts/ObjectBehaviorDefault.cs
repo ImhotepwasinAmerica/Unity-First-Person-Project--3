@@ -10,15 +10,18 @@ public class ObjectBehaviorDefault : MonoBehaviour
     public bool has_been_interacted, is_original;
     public float id;
 
+    private void Awake()
+    {
+        GameEvents.current.SmartDelete += DestroyOrChange; // This must run before DeleteSmartly is called
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        id = this.gameObject.transform.position.sqrMagnitude;
-        Debug.Log(id);
-
         GameEvents.current.DeleteAllTheThings += Destroy;
         GameEvents.current.SaveAllTheThings += SaveItem;
-        GameEvents.current.SmartDelete += DestroyOrChange;
+
+        id = this.gameObject.transform.position.sqrMagnitude;
 
         is_original = true;
     }
@@ -52,7 +55,6 @@ public class ObjectBehaviorDefault : MonoBehaviour
         object_data.rotation_x = this.gameObject.transform.rotation.x;
         object_data.rotation_y = this.gameObject.transform.rotation.y;
         object_data.rotation_z = this.gameObject.transform.rotation.z;
-        //object_data.thing_rotation = this.gameObject.transform.rotation;
     }
 
     public void RecordPosition()
@@ -60,7 +62,6 @@ public class ObjectBehaviorDefault : MonoBehaviour
         object_data.position_x = this.gameObject.transform.position.x;
         object_data.position_y = this.gameObject.transform.position.y;
         object_data.position_z = this.gameObject.transform.position.z;
-        //object_data.thing_position = this.gameObject.transform.position;
     }
 
     public void SpawnProceedings()
@@ -75,16 +76,18 @@ public class ObjectBehaviorDefault : MonoBehaviour
 
     public void Destroy()
     {
-        GameObject.Destroy(gameObject);
+        GameObject.Destroy(object_in_question);
     }
 
     public void SaveItem()
     {
+        Debug.Log("Saving this item");
+
         if (is_original)
         {
             Serialization.Save<SavedObject>(object_data,
                 Application.persistentDataPath + "/saves/savedgames/"
-                + data_container.GetComponent<DataContainer>().saved_game_slot
+                + PlayerPrefs.GetString("saved_game_slot")
                 + "/" + SceneManager.GetActiveScene().name
                 + "/presentitems/" + this.id + ".dat"); // The instance ID serves as the name of the object data file in memory
         }
@@ -92,7 +95,7 @@ public class ObjectBehaviorDefault : MonoBehaviour
         {
             Serialization.Save<SavedObject>(object_data,
                 Application.persistentDataPath + "/saves/savedgames/"
-                + data_container.GetComponent<DataContainer>().saved_game_slot
+                + PlayerPrefs.GetString("saved_game_slot")
                 + "/" + SceneManager.GetActiveScene().name
                 + "/items/" + this.id + ".dat");
         }
@@ -102,12 +105,14 @@ public class ObjectBehaviorDefault : MonoBehaviour
     {
         if (Serialization.SaveExists(
             Application.persistentDataPath + "/saves/savedgames/"
-            + data_container.GetComponent<DataContainer>().saved_game_slot
+            + PlayerPrefs.GetString("saved_game_slot")
             + "/" + SceneManager.GetActiveScene().name
             + "/presentitems/" + this.id + ".dat"))
         {
+            Debug.Log("Object technically changed");
+
             object_data = Serialization.Load<SavedObject>(Application.persistentDataPath + "/saves/savedgames/"
-            + data_container.GetComponent<DataContainer>().saved_game_slot
+            + PlayerPrefs.GetString("saved_game_slot")
             + "/" + SceneManager.GetActiveScene().name
             + "/presentitems/" + this.id + ".dat");
 
@@ -123,7 +128,9 @@ public class ObjectBehaviorDefault : MonoBehaviour
         }
         else
         {
-            this.Destroy();
+            Debug.Log("Object deleted");
+
+            GameObject.Destroy(object_in_question);
         }
     }
 
