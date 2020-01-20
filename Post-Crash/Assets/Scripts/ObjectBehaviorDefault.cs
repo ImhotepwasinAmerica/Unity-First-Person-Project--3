@@ -103,18 +103,26 @@ public class ObjectBehaviorDefault : MonoBehaviour
 
     public void DestroyOrChange()
     {
+        //Debug.Log(Serialization.SaveExists(
+        //    Application.persistentDataPath + "/saves/savedgames/"
+        //    + PlayerPrefs.GetString("saved_game_slot")
+        //    + "/" + SceneManager.GetActiveScene().name
+        //    + "/presentitems/" + this.id + ".dat"));
+
+        //Debug.Log(this.gameObject.transform.position.sqrMagnitude);
+
         if (Serialization.SaveExists(
             Application.persistentDataPath + "/saves/savedgames/"
             + PlayerPrefs.GetString("saved_game_slot")
             + "/" + SceneManager.GetActiveScene().name
-            + "/presentitems/" + this.id + ".dat"))
+            + "/presentitems/" + this.gameObject.transform.position.sqrMagnitude + ".dat"))
         {
-            Debug.Log("Object technically changed");
+            Debug.Log("Objectchanged");
 
             object_data = Serialization.Load<SavedObject>(Application.persistentDataPath + "/saves/savedgames/"
             + PlayerPrefs.GetString("saved_game_slot")
             + "/" + SceneManager.GetActiveScene().name
-            + "/presentitems/" + this.id + ".dat");
+            + "/presentitems/" + this.gameObject.transform.position.sqrMagnitude + ".dat");
 
             this.gameObject.transform.rotation = Quaternion.Euler(
                 object_data.rotation_x,
@@ -128,7 +136,7 @@ public class ObjectBehaviorDefault : MonoBehaviour
         }
         else
         {
-            Debug.Log("Object deleted");
+            Debug.Log(SceneManager.GetActiveScene().name);
 
             GameObject.Destroy(object_in_question);
         }

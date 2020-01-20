@@ -17,8 +17,6 @@ public class ItemCaller : MonoBehaviour
             + "/" + SceneManager.GetActiveScene().name))
         {
             GameEvents.current.DeleteSmartly();
-
-            Debug.Log("Preexisting item file detected");
         }
     }
 
