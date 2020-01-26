@@ -15,10 +15,15 @@ public class PlayerMovement : MonoBehaviour
     private Transform transformation;
     private CharacterController controller;
     private CapsuleCollider collider;
+    private Character guy;
 
     // Start is called before the first frame update
     void Start()
     {
+        GameEvents.current.LoadCharacterStance += LoadLocation;
+
+        guy = data_container.GetComponent<DataContainer>().character;
+
         transformation = GetComponent<Transform>();
         controller = GetComponent<CharacterController>();
         collider = GetComponent<CapsuleCollider>();
@@ -50,10 +55,6 @@ public class PlayerMovement : MonoBehaviour
         MovementLean();
 
         velocity_endgoal = transformation.rotation * velocity_endgoal;
-
-        velocity.x = Mathf.Lerp(velocity.x, velocity_endgoal.x, 0.15f);
-        velocity.z = Mathf.Lerp(velocity.z, velocity_endgoal.z, 0.15f);
-        velocity.y = velocity_endgoal.y;
 
         previous_grounded = current_grounded;
         current_grounded = IsGrounded();
@@ -209,5 +210,15 @@ public class PlayerMovement : MonoBehaviour
             distance_to_ground += 0.05f;
             transformation.localScale += new Vector3(0, 0.05f, 0);
         }
+    }
+
+    private void LoadLocation()
+    {
+        transform.Translate(new Vector3(guy.position_x, guy.position_y, guy.position_z) - transform.position,
+                Space.World);
+        transform.Rotate(new Vector3(guy.rotation_x, guy.rotation_y, guy.rotation_z) - transform.rotation.eulerAngles,
+            Space.World);
+
+        Debug.Log("Character data test: " + transform.position);
     }
 }

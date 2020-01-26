@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     public GameObject data_container, character;
+
     private Vector3 character_position;
     private Quaternion character_rotation;
     private Character guy;
@@ -58,6 +59,7 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         Cursor.lockState = CursorLockMode.Locked;
 
         guy = data_container.GetComponent<DataContainer>().character;
@@ -66,15 +68,15 @@ public class LevelManager : MonoBehaviour
             && Serialization.SaveExists(Application.persistentDataPath + "/saves/savedgames/"
             + PlayerPrefs.GetString("saved_game_slot") + "/character.dat")) // It will be necessary to alter the position and rotation of the character when entering a new scene
         {
-            character.transform.position = new Vector3(
-                guy.position_x,
-                guy.position_y,
-                guy.position_z);
 
-            character.transform.rotation = Quaternion.Euler(
-                guy.rotation_x,
-                guy.rotation_y,
-                guy.rotation_z);
+            //character.transform.Translate(new Vector3(guy.position_x, guy.position_y, guy.position_z)-character.transform.position,
+            //    Space.World);
+            //character.transform.Rotate(new Vector3(guy.rotation_x, guy.rotation_y, guy.rotation_z)-character.transform.rotation.eulerAngles,
+            //    Space.World);
+
+            //Debug.Log("Character data test: " + character.transform.position);
+
+            GameEvents.current.LoadDaGuy();
         }
     }
 
@@ -96,5 +98,7 @@ public class LevelManager : MonoBehaviour
         guy.rotation_x = character_rotation.x;
         guy.rotation_y = character_rotation.y;
         guy.rotation_z = character_rotation.z;
+
+        //Debug.Log(character.transform.position);
     }
 }

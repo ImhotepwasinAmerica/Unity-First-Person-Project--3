@@ -103,14 +103,6 @@ public class ObjectBehaviorDefault : MonoBehaviour
 
     public void DestroyOrChange()
     {
-        //Debug.Log(Serialization.SaveExists(
-        //    Application.persistentDataPath + "/saves/savedgames/"
-        //    + PlayerPrefs.GetString("saved_game_slot")
-        //    + "/" + SceneManager.GetActiveScene().name
-        //    + "/presentitems/" + this.id + ".dat"));
-
-        //Debug.Log(this.gameObject.transform.position.sqrMagnitude);
-
         if (Serialization.SaveExists(
             Application.persistentDataPath + "/saves/savedgames/"
             + PlayerPrefs.GetString("saved_game_slot")

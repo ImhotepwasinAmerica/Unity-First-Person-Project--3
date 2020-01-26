@@ -7319,7 +7319,6 @@ MonoBehaviour:
     max_health: 0
     weight: 0
     invincible: 0
-    switch_on: 0
     weapon_ammo_count: 0
     toolbelt: []
   scene:
@@ -9964,7 +9963,7 @@ GameObject:
   - component: {fileID: 460089927}
   m_Layer: 0
   m_Name: Character
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10075,7 +10074,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotation_thing: {fileID: 1380565132}
-  data_container: {fileID: 0}
+  data_container: {fileID: 345501918}
   speed: 10
   jump_takeoff_speed: 4
   height_standing: 2
@@ -43065,6 +43064,7 @@ MonoBehaviour:
     weapon_ammo_count: 0
   has_been_interacted: 0
   is_original: 0
+  id: 0
   held_object_anchor: {fileID: 0}
 --- !u!1 &2034991820
 GameObject:
