@@ -20,6 +20,8 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        data_container = GameObject.FindGameObjectWithTag("DataContainer");
+
         GameEvents.current.LoadCharacterStance += LoadLocation;
 
         guy = data_container.GetComponent<DataContainer>().character;
@@ -42,6 +44,8 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        data_container = GameObject.FindGameObjectWithTag("DataContainer");
+
         Walk();
 
         BetterMovement();
@@ -218,7 +222,5 @@ public class PlayerMovement : MonoBehaviour
                 Space.World);
         transform.Rotate(new Vector3(guy.rotation_x, guy.rotation_y, guy.rotation_z) - transform.rotation.eulerAngles,
             Space.World);
-
-        Debug.Log("Character data test: " + transform.position);
     }
 }

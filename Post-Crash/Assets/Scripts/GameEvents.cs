@@ -7,7 +7,7 @@ public class GameEvents : MonoBehaviour
 {
     public static GameEvents current;
 
-    public event Action DeleteAllTheThings, SaveAllTheThings, SmartDelete, LoadCharacterStance;
+    public event Action DeleteAllTheThings, SaveAllTheThings, SmartDelete, LoadCharacterStance, LoadCharacterRotation;
     public event Action<int> DoorwayOpen, DoorwayClose;
 
     private void Awake()
@@ -72,6 +72,14 @@ public class GameEvents : MonoBehaviour
         if (LoadCharacterStance != null)
         {
             LoadCharacterStance();
+        }
+    }
+
+    public void LoadDaRot()
+    {
+        if (LoadCharacterRotation !=null)
+        {
+            LoadCharacterRotation();
         }
     }
 }

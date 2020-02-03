@@ -5,10 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    public GameObject data_container, character;
+    public GameObject data_container, character, camera;
 
-    private Vector3 character_position;
-    private Quaternion character_rotation;
+    private Vector3 character_position, character_rotation;
     private Character guy;
 
     public void Awake()
@@ -63,20 +62,26 @@ public class LevelManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         guy = data_container.GetComponent<DataContainer>().character;
+        //Debug.Log(guy.rotation_y);
 
         if (data_container.GetComponent<DataContainer>().character.rotation_x != null
             && Serialization.SaveExists(Application.persistentDataPath + "/saves/savedgames/"
             + PlayerPrefs.GetString("saved_game_slot") + "/character.dat")) // It will be necessary to alter the position and rotation of the character when entering a new scene
         {
+            GameObject.Destroy(character);
 
-            //character.transform.Translate(new Vector3(guy.position_x, guy.position_y, guy.position_z)-character.transform.position,
-            //    Space.World);
-            //character.transform.Rotate(new Vector3(guy.rotation_x, guy.rotation_y, guy.rotation_z)-character.transform.rotation.eulerAngles,
-            //    Space.World);
+            character = GameObject.Instantiate(Resources.Load<GameObject>("Character"),
+                        new Vector3(guy.position_x, guy.position_y, guy.position_z),
+                        Quaternion.Euler(guy.rotation_x, guy.rotation_y, guy.rotation_z)); // Does not actually accept
 
-            //Debug.Log("Character data test: " + character.transform.position);
+            camera = GameObject.FindGameObjectWithTag("MainCamera");
+            camera.GetComponent<PlayerLooking>().ex = guy.rotation_x;
+            camera.GetComponent<PlayerLooking>().why = guy.rotation_y;
+            camera.GetComponent<PlayerLooking>().zee = guy.rotation_z;
 
-            GameEvents.current.LoadDaGuy();
+            //Debug.Log(camera.GetComponent<PlayerLooking>().zee);
+            //Debug.Log(camera.GetComponent<PlayerLooking>().why);
+            //Debug.Log(guy.rotation_y);
         }
     }
 
@@ -88,8 +93,10 @@ public class LevelManager : MonoBehaviour
 
     void FixedUpdate()
     {
+        camera = GameObject.FindGameObjectWithTag("MainCamera");
+
         character_position = character.transform.position;
-        character_rotation = character.transform.rotation;
+        character_rotation = camera.transform.eulerAngles;
 
         guy.position_x = character_position.x;
         guy.position_y = character_position.y;
@@ -99,6 +106,6 @@ public class LevelManager : MonoBehaviour
         guy.rotation_y = character_rotation.y;
         guy.rotation_z = character_rotation.z;
 
-        //Debug.Log(character.transform.position);
+        //Debug.Log(guy.rotation_y);
     }
 }

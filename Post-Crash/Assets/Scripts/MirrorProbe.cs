@@ -17,17 +17,11 @@ public class MirrorProbe : MonoBehaviour
     void Start()
     {
         camera = GameObject.FindGameObjectWithTag("MainCamera");
-        Debug.Log(camera);
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        //if (camera = null)
-        //{
-        //    camera = GameObject.FindGameObjectWithTag("MainCamera");
-        //}
-
         camera = GameObject.FindGameObjectWithTag("MainCamera");
 
         if (Vector3.Distance(mirror.transform.position, camera.transform.position) < render_distance)
