@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ControlsMiscellaneous : MonoBehaviour
 {
     public static bool paused = false;
-    public GameObject data_container, pause_UI, main_menu, options_menu, keybindings_menu, graphics_menu, sound_menu, gameplay_menu, game_files_menu;
+    public GameObject data_container, pause_UI, main_menu, options_menu, keybindings_menu, graphics_menu, sound_menu, gameplay_menu, game_files_menu, loading_screen;
+    public Slider slider;
 
     // Start is called before the first frame update
     void Start()

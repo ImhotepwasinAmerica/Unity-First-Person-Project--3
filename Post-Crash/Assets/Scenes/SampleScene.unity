@@ -16982,8 +16982,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbd8d3da9f489b44486eceb924c9b8bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameplay_menu: {fileID: 799153084}
+  options_menu: {fileID: 2031273457}
   squat_text: {fileID: 1881851406}
   carry_text: {fileID: 1885112915}
+  enemy_health_text: {fileID: 0}
+  enemy_damage_text: {fileID: 0}
   enemy_health: {fileID: 671040551}
   enemy_damage: {fileID: 985778190}
 --- !u!224 &799153086
@@ -17529,26 +17533,15 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 819777237}
-        m_MethodName: ChangeKey
+      - m_Target: {fileID: 799153085}
+        m_MethodName: ButtonTextSet
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 819604110}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 1881851406}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 819777237}
-        m_MethodName: SetCurrentAction
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Move Forward
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &819604113
@@ -23713,26 +23706,15 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 819777237}
-        m_MethodName: ChangeKey
+      - m_Target: {fileID: 799153085}
+        m_MethodName: ButtonTextSet
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 1170352014}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 1885112915}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 819777237}
-        m_MethodName: SetCurrentAction
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Move Forward
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1170352017
@@ -32746,7 +32728,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7f86f64a433d18439cc57d962bf92bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data_containment: {fileID: 0}
+  data_container: {fileID: 0}
   pause_UI: {fileID: 668391080}
   main_menu: {fileID: 0}
   options_menu: {fileID: 0}
@@ -32755,6 +32737,8 @@ MonoBehaviour:
   sound_menu: {fileID: 0}
   gameplay_menu: {fileID: 0}
   game_files_menu: {fileID: 0}
+  loading_screen: {fileID: 897302418}
+  slider: {fileID: 1747332994}
 --- !u!1 &1581414564
 GameObject:
   m_ObjectHideFlags: 0
@@ -43707,7 +43691,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2106183825}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 799153085}
+        m_MethodName: Open_Options
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2106183825
 MonoBehaviour:
   m_ObjectHideFlags: 0

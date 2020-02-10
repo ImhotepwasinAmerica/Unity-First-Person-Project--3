@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class MenuScriptGameplay : MonoBehaviour
 {
-    public Text squat_text, carry_text;
+    public GameObject gameplay_menu, options_menu;
+    public Text squat_text, carry_text, enemy_health_text, enemy_damage_text;
     public Slider enemy_health, enemy_damage;
     
     // Start is called before the first frame update
@@ -31,17 +32,31 @@ public class MenuScriptGameplay : MonoBehaviour
 
         PlayerPrefs.SetInt("enemy_health_percentage", (int)enemy_health.value);
         PlayerPrefs.SetInt("enemy_damage_percentage", (int)enemy_damage.value);
+
+        enemy_health_text.text = (int)enemy_health.value + "";
+        enemy_damage_text.text = (int)enemy_damage.value + "";
     }
 
-    public void ButtonTextSet(Text button_text)
+    public void ButtonTextSet(Text text)
     {
-        if (button_text.text == "toggle")
+        if (text.text == "toggle")
         {
-            button_text.text = "hold";
+            text.text = "hold";
         }
-        else if(button_text.text == "hold")
+        else if(text.text == "hold")
         {
-            button_text.text = "toggle";
+            text.text = "toggle";
         }
+    }
+
+    public void Open_Menu_Page(GameObject page)
+    {
+        page.SetActive(true);
+        gameplay_menu.SetActive(false);
+    }
+
+    public void Open_Options()
+    {
+        Open_Menu_Page(options_menu);
     }
 }
