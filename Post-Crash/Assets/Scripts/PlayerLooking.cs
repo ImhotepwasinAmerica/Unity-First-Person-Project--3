@@ -73,11 +73,6 @@ public class PlayerLooking : MonoBehaviour
     
     private void GeneralAction()
     {
-        if (PlayerPrefs.GetString("togglehold_carry") == "toggle")
-        {
-
-        }
-
         if (Input.GetButtonDown(PlayerPrefs.GetString("General Action")))
         {
             try
@@ -85,13 +80,16 @@ public class PlayerLooking : MonoBehaviour
                 usage_target = ReturnUsableObject();
                 usage_target.GetComponent<ObjectBehaviorDefault>().UseDefault(held_object_anchor);
 
-                if (usage_target.tag == "Holdable" && held_thing == null)
+                if (PlayerPrefs.GetString("togglehold_carry") == "toggle")
                 {
-                    held_thing = usage_target;
-                }
-                else if(held_thing == usage_target)
-                {
-                    held_thing = null;
+                    if (usage_target.tag == "Holdable" && held_thing == null)
+                    {
+                        held_thing = usage_target;
+                    }
+                    else if (held_thing == usage_target)
+                    {
+                        held_thing = null;
+                    }
                 }
 
                 usage_target = null;
@@ -100,6 +98,40 @@ public class PlayerLooking : MonoBehaviour
             {
                 usage_target = null;
                 Debug.Log("No object found");
+            }
+        }
+
+        if (Input.GetButton(PlayerPrefs.GetString("General Action")))
+        {
+            try
+            {
+                usage_target = ReturnUsableObject();
+                usage_target.GetComponent<ObjectBehaviorDefault>().UseDefaultHold(held_object_anchor);
+
+                if (PlayerPrefs.GetString("togglehold_carry") == "toggle")
+                {
+                    if (usage_target.tag == "Holdable" && held_thing == null)
+                    {
+                        held_thing = usage_target;
+                    }
+                    else if (held_thing == usage_target)
+                    {
+                        held_thing = null;
+                    }
+                }
+            }
+            catch (System.NullReferenceException e)
+            {
+                usage_target = null;
+            }
+        }
+        else
+        {
+            if (usage_target != null)
+            {
+                usage_target.GetComponent<ObjectBehaviorDefault>().UseDefaultHoldRelease();
+                usage_target = null;
+                held_thing = null;
             }
         }
     }

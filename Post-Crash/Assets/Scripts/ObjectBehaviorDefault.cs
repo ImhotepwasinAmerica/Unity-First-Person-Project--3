@@ -138,6 +138,12 @@ public class ObjectBehaviorDefault : MonoBehaviour
 
     public virtual void UseDefault() { }
 
+    public virtual void UseDefaultHold(GameObject thing) { }
+
+    public virtual void UseDefaultHold() { }
+
+    public virtual void UseDefaultHoldRelease() { }
+
     public virtual void MoveAugment() { }
 
     public virtual void MakeVirtual() { }

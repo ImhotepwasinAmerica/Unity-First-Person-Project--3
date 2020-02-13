@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 velocity, velocity_endgoal;
     private float angular_speed, gravity_fake, time_fake;
-    private bool is_squatting, current_grounded, previous_grounded;
+    private bool is_squatting, is_walking, current_grounded, previous_grounded;
     private Quaternion lean;
 
     private Transform transformation;
@@ -21,8 +21,6 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         data_container = GameObject.FindGameObjectWithTag("DataContainer");
-
-        GameEvents.current.LoadCharacterStance += LoadLocation;
 
         guy = data_container.GetComponent<DataContainer>().character;
 
@@ -39,6 +37,10 @@ public class PlayerMovement : MonoBehaviour
         gravity_fake = Physics.gravity.y * time_fake;
 
         lean = Quaternion.Euler(0,0,0);
+
+        is_squatting = false;
+
+        is_walking = false;
     }
 
     // Update is called once per frame
@@ -57,6 +59,8 @@ public class PlayerMovement : MonoBehaviour
         CycaBlyat();
 
         MovementLean();
+
+        WalkRun();
 
         velocity_endgoal = transformation.rotation * velocity_endgoal;
 
@@ -190,37 +194,91 @@ public class PlayerMovement : MonoBehaviour
         lean.z = Mathf.Lerp(lean.z, -velocity_endgoal.x/5, 0.09f);
         rotation_thing.transform.localRotation = lean;
     }
-
     
     private void CycaBlyat()
     {
-        if (Input.GetButton(PlayerPrefs.GetString("Squat")) 
-            && (collider.height > height_squatting))
+        if (PlayerPrefs.GetString("togglehold_squat") == "hold")
         {
-            velocity_endgoal.x *= speed_multiplier_squatting;
-            velocity_endgoal.z *= speed_multiplier_squatting;
+            if (Input.GetButton(PlayerPrefs.GetString("Squat")))
+            {
+                velocity_endgoal.x *= speed_multiplier_squatting;
+                velocity_endgoal.z *= speed_multiplier_squatting;
 
-            collider.height -= 0.1f;
-            controller.height -= 0.1f;
-            distance_to_ground -= 0.05f;
-            transformation.localScale -= new Vector3(0, 0.05f, 0);
+                if (collider.height > height_squatting)
+                {
+                    collider.height -= 0.1f;
+                    controller.height -= 0.1f;
+                    distance_to_ground -= 0.05f;
+                    transformation.localScale -= new Vector3(0, 0.05f, 0);
+                }
+            }
+            else if (!Input.GetButton(PlayerPrefs.GetString("Squat"))
+                && collider.height < height_standing
+                && !IsBeneathSomething())
+            {
+                collider.height += 0.1f;
+                controller.height += 0.1f;
+                distance_to_ground += 0.05f;
+                transformation.localScale += new Vector3(0, 0.05f, 0);
+            }
         }
-        else if (!Input.GetButton(PlayerPrefs.GetString("Squat")) 
-            && collider.height < height_standing 
-            && !IsBeneathSomething())
+        else if (PlayerPrefs.GetString("togglehold_squat") == "toggle")
         {
-            collider.height += 0.1f;
-            controller.height += 0.1f;
-            distance_to_ground += 0.05f;
-            transformation.localScale += new Vector3(0, 0.05f, 0);
+            if (Input.GetButtonDown(PlayerPrefs.GetString("Squat")))
+            {
+                if (!is_squatting)
+                {
+                    is_squatting = true;
+                }
+                else if (is_squatting)
+                {
+                    is_squatting = false;
+                }
+            }
+
+            if (!is_squatting
+                && collider.height < height_standing
+                && !IsBeneathSomething())
+            {
+                collider.height += 0.1f;
+                controller.height += 0.1f;
+                distance_to_ground += 0.05f;
+                transformation.localScale += new Vector3(0, 0.05f, 0);
+            }
+            else if (is_squatting)
+            {
+                velocity_endgoal.x *= speed_multiplier_squatting;
+                velocity_endgoal.z *= speed_multiplier_squatting;
+
+                if (collider.height > height_squatting)
+                {
+                    collider.height -= 0.1f;
+                    controller.height -= 0.1f;
+                    distance_to_ground -= 0.05f;
+                    transformation.localScale -= new Vector3(0, 0.05f, 0);
+                }
+            }
         }
     }
 
-    private void LoadLocation()
+    private void WalkRun()
     {
-        transform.Translate(new Vector3(guy.position_x, guy.position_y, guy.position_z) - transform.position,
-                Space.World);
-        transform.Rotate(new Vector3(guy.rotation_x, guy.rotation_y, guy.rotation_z) - transform.rotation.eulerAngles,
-            Space.World);
+        if (Input.GetButtonDown(PlayerPrefs.GetString("Speed Toggle")))
+        {
+            if (is_walking)
+            {
+                is_walking = false;
+            }
+            else if (!is_walking)
+            {
+                is_walking = true;
+            }
+        }
+
+        if (is_walking)
+        {
+            velocity_endgoal.x *= 0.5f;
+            velocity_endgoal.z *= 0.5f;
+        }
     }
 }

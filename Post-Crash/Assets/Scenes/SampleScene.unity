@@ -16986,8 +16986,8 @@ MonoBehaviour:
   options_menu: {fileID: 2031273457}
   squat_text: {fileID: 1881851406}
   carry_text: {fileID: 1885112915}
-  enemy_health_text: {fileID: 0}
-  enemy_damage_text: {fileID: 0}
+  enemy_health_text: {fileID: 1257855466}
+  enemy_damage_text: {fileID: 1042134366}
   enemy_health: {fileID: 671040551}
   enemy_damage: {fileID: 985778190}
 --- !u!224 &799153086
