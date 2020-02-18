@@ -13,7 +13,7 @@ public class MenuScriptKeybinds : MonoBehaviour
     private string current_action, current_key;
 
     public Text move_forward, move_backward, move_left, move_right,
-        jump, squat, speed_toggle, action_general,
+        jump, squat, lean_left, lean_right, speed_toggle, action_general,
         attack_primary, attack_secondary, attack_tertiary, kick, block,
         toolbelt_one, toolbelt_two, toolbelt_three, toolbelt_four, toolbelt_five,
         toolbelt_six, toolbelt_seven, toolbelt_eight, toolbelt_nine, toolbelt_ten,
@@ -64,6 +64,8 @@ public class MenuScriptKeybinds : MonoBehaviour
         gamma_up.text = PlayerPrefs.GetString("Gamma Up");
         gamma_down.text = PlayerPrefs.GetString("Gamma Down");
         item_rotate.text = PlayerPrefs.GetString("Item Rotate");
+        lean_left.text = PlayerPrefs.GetString("Lean Left");
+        lean_right.text = PlayerPrefs.GetString("Lean Right");
 
     }
 

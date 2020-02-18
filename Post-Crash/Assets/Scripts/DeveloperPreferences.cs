@@ -41,6 +41,8 @@ public class DeveloperPreferences : MonoBehaviour
         PlayerPrefs.SetString("Gamma Up", "Equals");
         PlayerPrefs.SetString("Gamma Down", "Minus");
         PlayerPrefs.SetString("Item Rotate", "G");
+        PlayerPrefs.SetString("Lean Left", "Z");
+        PlayerPrefs.SetString("Lean Right","X");
     }
 
     public static void Graphics()

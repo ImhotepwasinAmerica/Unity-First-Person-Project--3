@@ -60,6 +60,8 @@ public class PlayerMovement : MonoBehaviour
 
         MovementLean();
 
+        ControlLean();
+
         WalkRun();
 
         velocity_endgoal = transformation.rotation * velocity_endgoal;
@@ -197,6 +199,28 @@ public class PlayerMovement : MonoBehaviour
     private void MovementLean()
     {
         lean.z = Mathf.Lerp(lean.z, -velocity_endgoal.x/5, 0.09f);
+        rotation_thing.transform.localRotation = lean;
+    }
+
+    private void ControlLean()
+    {
+        if (Input.GetButton(PlayerPrefs.GetString("Lean Left"))
+            && Input.GetButton(PlayerPrefs.GetString("Lean Right")))
+        {
+            lean.z = Mathf.Lerp(lean.z, 0, 0.09f);
+        }
+        else if (Input.GetButton(PlayerPrefs.GetString("Lean Left"))
+            && !Input.GetButton(PlayerPrefs.GetString("Lean Right")))
+        {
+            lean.z = Mathf.Lerp(lean.z, 0.15f, 0.09f);
+        }
+        else if (Input.GetButton(PlayerPrefs.GetString("Lean Right"))
+            && !Input.GetButton(PlayerPrefs.GetString("Lean Left")))
+        {
+            lean.z = Mathf.Lerp(lean.z, -0.15f, 0.09f);
+        }
+
+        
         rotation_thing.transform.localRotation = lean;
     }
     
