@@ -74,6 +74,9 @@ public class PlayerMovement : MonoBehaviour
         velocity.z = Mathf.Lerp(velocity.z, velocity_endgoal.z, 0.15f);
         velocity.y = velocity_endgoal.y;
 
+        // The velocity value shall be changed by standing on moving platforms
+        // which shall be done here.
+
         controller.Move(velocity);
     }
 
@@ -159,12 +162,13 @@ public class PlayerMovement : MonoBehaviour
             return true;
         }
 
-        Vector3 bottom = controller.transform.position - new Vector3(0, controller.height / 2, 0);
+        Vector3 bottom = controller.transform.position - new Vector3(0, controller.height/2, 0);
 
         RaycastHit hit;
-        if (Physics.Raycast(bottom, new Vector3(0, -1, 0), out hit, 0.45f)
-            && !(Input.GetKey(KeyCode.Space))
-            && !Input.GetKeyDown(KeyCode.Space))
+
+        if (Physics.Raycast(bottom, new Vector3(0, -1, 0), out hit, 0.5f)
+            && !(Input.GetButton(PlayerPrefs.GetString("Jump")))
+            && !Input.GetButtonDown(PlayerPrefs.GetString("Jump")))
         {
             if (current_grounded && previous_grounded)
             {
@@ -172,12 +176,13 @@ public class PlayerMovement : MonoBehaviour
                 return true;
             }
         }
+
         return false;
     }
 
     private bool IsBeneathSomething()
     {
-        return Physics.Raycast(transform.position, Vector3.up, distance_to_ground);
+        return Physics.Raycast(transform.position, Vector3.up, controller.height-distance_to_ground+0.3f);
     }
 
     private void Jump()
