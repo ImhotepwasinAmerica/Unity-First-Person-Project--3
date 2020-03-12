@@ -72,8 +72,8 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        velocity.x = Mathf.Lerp(velocity.x, velocity_endgoal.x, 0.15f);
-        velocity.z = Mathf.Lerp(velocity.z, velocity_endgoal.z, 0.15f);
+        velocity.x = Mathf.Lerp(velocity.x, velocity_endgoal.x, 0.1f);
+        velocity.z = Mathf.Lerp(velocity.z, velocity_endgoal.z, 0.1f);
         velocity.y = velocity_endgoal.y;
 
         // The velocity value shall be changed by standing on moving platforms
@@ -168,7 +168,7 @@ public class PlayerMovement : MonoBehaviour
 
         RaycastHit hit;
 
-        if (Physics.Raycast(bottom, new Vector3(0, -1, 0), out hit, 0.5f)
+        if (Physics.Raycast(bottom, new Vector3(0, -1, 0), out hit, 1.5f)
             && !(Input.GetButton(PlayerPrefs.GetString("Jump")))
             && !Input.GetButtonDown(PlayerPrefs.GetString("Jump")))
         {
