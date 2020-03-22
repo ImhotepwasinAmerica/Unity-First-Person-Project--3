@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     public float speed, jump_takeoff_speed, height_standing, height_squatting, lean_distance, distance_to_ground, speed_multiplier_squatting;
 
     private Vector3 velocity, velocity_endgoal;
-    private float angular_speed, gravity_fake, time_fake;
+    private float angular_speed, gravity_fake, time_fake, acceleration;
     private bool is_squatting, is_walking, current_grounded, previous_grounded;
     private Quaternion lean;
 
@@ -48,6 +48,8 @@ public class PlayerMovement : MonoBehaviour
     {
         data_container = GameObject.FindGameObjectWithTag("DataContainer");
 
+        AlterAcceleration();
+
         Walk();
 
         BetterMovement();
@@ -72,8 +74,8 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        velocity.x = Mathf.Lerp(velocity.x, velocity_endgoal.x, 0.1f);
-        velocity.z = Mathf.Lerp(velocity.z, velocity_endgoal.z, 0.1f);
+        velocity.x = Mathf.Lerp(velocity.x, velocity_endgoal.x, acceleration);
+        velocity.z = Mathf.Lerp(velocity.z, velocity_endgoal.z, acceleration);
         velocity.y = velocity_endgoal.y;
 
         // The velocity value shall be changed by standing on moving platforms
@@ -308,6 +310,18 @@ public class PlayerMovement : MonoBehaviour
         {
             velocity_endgoal.x *= 0.5f;
             velocity_endgoal.z *= 0.5f;
+        }
+    }
+
+    private void AlterAcceleration()
+    {
+        if ( IsGrounded())
+        {
+            acceleration = 0.15f;
+        }
+        else
+        {
+            acceleration = 0.1f;
         }
     }
 }

@@ -27,10 +27,6 @@ public class PlayerLooking : MonoBehaviour
         usage_target = null;
         held_thing = null;
 
-        //ex = data_container.GetComponent<DataContainer>().character.rotation_x;
-        //why = data_container.GetComponent<DataContainer>().character.rotation_y;
-        //zee = data_container.GetComponent<DataContainer>().character.rotation_z;
-
         LoadRotation();
     }
 
@@ -64,13 +60,10 @@ public class PlayerLooking : MonoBehaviour
             smooth_v.y = Mathf.Lerp(smooth_v.y, md.y, 1f / smoothing);
             mouse_look += smooth_v;
 
-            //mouse_look.y = ex - mouse_look.y;
-            //mouse_look.x = why + mouse_look.x;
-
             mouse_look.y = Mathf.Clamp(mouse_look.y, -90f, 90f);
 
             transform.localRotation = Quaternion.AngleAxis(-mouse_look.y, Vector3.right); // up and down
-            character.transform.localRotation = Quaternion.Euler(0, why+mouse_look.x, 0); // left and right
+            character.transform.localRotation = Quaternion.Euler(0, mouse_look.x, 0); // left and right
         }
     }
     

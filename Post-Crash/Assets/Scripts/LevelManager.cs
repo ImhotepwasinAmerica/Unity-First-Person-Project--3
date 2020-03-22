@@ -62,26 +62,37 @@ public class LevelManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         guy = data_container.GetComponent<DataContainer>().character;
-        //Debug.Log(guy.rotation_y);
 
         if (data_container.GetComponent<DataContainer>().character.rotation_x != null
             && Serialization.SaveExists(Application.persistentDataPath + "/saves/savedgames/"
             + PlayerPrefs.GetString("saved_game_slot") + "/character.dat")) // It will be necessary to alter the position and rotation of the character when entering a new scene
         {
-            GameObject.Destroy(character);
+            character.GetComponent<CharacterController>().enabled = false;
 
-            character = GameObject.Instantiate(Resources.Load<GameObject>("Character"),
-                        new Vector3(guy.position_x, guy.position_y, guy.position_z),
-                        Quaternion.Euler(guy.rotation_x, guy.rotation_y, guy.rotation_z)); // Does not actually accept
+            character.transform.SetPositionAndRotation(
+                new Vector3(guy.position_x,guy.position_y,guy.position_z), 
+                Quaternion.Euler(guy.rotation_x,guy.rotation_y,guy.rotation_z));
 
-            camera = GameObject.FindGameObjectWithTag("MainCamera");
-            camera.GetComponent<PlayerLooking>().ex = guy.rotation_x;
-            camera.GetComponent<PlayerLooking>().why = guy.rotation_y;
-            camera.GetComponent<PlayerLooking>().zee = guy.rotation_z;
+            
 
-            //Debug.Log(camera.GetComponent<PlayerLooking>().zee);
-            //Debug.Log(camera.GetComponent<PlayerLooking>().why);
-            //Debug.Log(guy.rotation_y);
+            character.GetComponent<CharacterController>().enabled = true;
+
+            camera.GetComponent<PlayerLooking>().enabled = false;
+
+            camera.transform.rotation = Quaternion.Euler(guy.rotation_x, guy.rotation_y, guy.rotation_z);
+
+            camera.GetComponent<PlayerLooking>().enabled = true;
+
+            //GameObject.Destroy(character);
+
+            //character = GameObject.Instantiate(Resources.Load<GameObject>("Character"),
+            //            new Vector3(guy.position_x, guy.position_y, guy.position_z),
+            //            Quaternion.Euler(guy.rotation_x, guy.rotation_y, guy.rotation_z)); // Does not actually accept
+
+            //camera = GameObject.FindGameObjectWithTag("MainCamera");
+            //camera.GetComponent<PlayerLooking>().ex = guy.rotation_x;
+            //camera.GetComponent<PlayerLooking>().why = guy.rotation_y;
+            //camera.GetComponent<PlayerLooking>().zee = guy.rotation_z;
         }
     }
 
@@ -105,7 +116,5 @@ public class LevelManager : MonoBehaviour
         guy.rotation_x = character_rotation.x;
         guy.rotation_y = character_rotation.y;
         guy.rotation_z = character_rotation.z;
-
-        //Debug.Log(guy.rotation_y);
     }
 }

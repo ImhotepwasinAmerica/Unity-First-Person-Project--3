@@ -18882,6 +18882,7 @@ GameObject:
   - component: {fileID: 857853911}
   - component: {fileID: 857853910}
   - component: {fileID: 857853909}
+  - component: {fileID: 857853913}
   m_Layer: 0
   m_Name: Portal 2
   m_TagString: Untagged
@@ -18957,13 +18958,32 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 857853908}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 16.05, y: 3, z: 17.02}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalPosition: {x: 16.6, y: 5, z: 57.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1220745191}
   m_Father: {fileID: 0}
   m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &857853913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 857853908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d24bb998ae854843a7b4b57d7cde206, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  portal_this: {fileID: 857853908}
+  portal_other: {fileID: 1740747222}
+  character: {fileID: 460089921}
+  camera_main: {fileID: 3533839111130005284}
+  camera_this: {fileID: 1220745193}
+  camera_other: {fileID: 744046953}
+  texture_this: {fileID: 8400000, guid: 320953f502fd2244e95f79eec79b904e, type: 2}
 --- !u!1 &859535064
 GameObject:
   m_ObjectHideFlags: 0
@@ -37217,6 +37237,7 @@ GameObject:
   - component: {fileID: 1740747225}
   - component: {fileID: 1740747224}
   - component: {fileID: 1740747223}
+  - component: {fileID: 1740747227}
   m_Layer: 0
   m_Name: Portal 1
   m_TagString: Untagged
@@ -37255,7 +37276,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 35ea9c53556e3ef4d8d23410dd3a60ec, type: 2}
+  - {fileID: 2100000, guid: ecd1dd4ec8e222d46be9fea2827dcb03, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -37292,13 +37313,32 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1740747222}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 16.05, y: 3, z: 10.17}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalPosition: {x: 16.05, y: 5, z: 10.17}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 744046951}
   m_Father: {fileID: 0}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &1740747227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1740747222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d24bb998ae854843a7b4b57d7cde206, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  portal_this: {fileID: 1740747222}
+  portal_other: {fileID: 857853908}
+  character: {fileID: 460089921}
+  camera_main: {fileID: 3533839111130005284}
+  camera_this: {fileID: 744046953}
+  camera_other: {fileID: 1220745193}
+  texture_this: {fileID: 8400000, guid: 6133376f595800841806952224dfbb88, type: 2}
 --- !u!1 &1747332993
 GameObject:
   m_ObjectHideFlags: 0
@@ -44852,6 +44892,11 @@ PrefabInstance:
         type: 3}
       propertyPath: distance_to_ground
       value: 1.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3533839111043765605, guid: 8454433829e81b041be75d5e876f5fa3,
+        type: 3}
+      propertyPath: m_SlopeLimit
+      value: 46
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8454433829e81b041be75d5e876f5fa3, type: 3}
